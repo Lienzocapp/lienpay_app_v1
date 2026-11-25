@@ -1,0 +1,169 @@
+/*
+ * limitCheck.module.css — Check-My-Limit (eligibility) journey, screens 7–14.
+ *
+ * Screen-scoped classes for the PAN, MF-connection, investment-discovery and
+ * eligibility-result screens. Shared structure (screen/flow/header/actions,
+ * processing block, consent row, success moment) is reused from
+ * onboarding.module.css / phase4 / phase5; only the classes unique to this
+ * journey live here. Colors come exclusively from design tokens (Req 1.2,
+ * 14.5); color-mix is token-derived.
+ */
+
+/* --- PAN verification --- */
+.panForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- Informational bullet list (MF connection: why / what / control) --- */
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 62%, var(--color-bg));
+}
+
+.infoBullet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.infoBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.infoTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.infoText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* --- Portfolio found: discovered-investments list --- */
+.discList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.discRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: var(--color-panel);
+}
+
+.discMain {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.discName {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.discMeta {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.3;
+  color: var(--color-text-secondary);
+}
+
+.discValue {
+  flex: 0 0 auto;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* --- Eligible credit limit result: supporting breakdown --- */
+.resultBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+}
+
+.resultRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resultRowLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.resultRowValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.resultRowValueAccent {
+  color: var(--color-green);
+}
+
+.resultDivider {
+  height: 1px;
+  background-color: var(--color-border);
+}

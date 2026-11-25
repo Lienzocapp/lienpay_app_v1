@@ -1,0 +1,145 @@
+/*
+ * Pre-Activation Phase 6 screens (18–20): Final Credit Review, Activation,
+ * Activation Success — shared layout styles.
+ *
+ * Layout/structure only; every color comes exclusively from the design tokens
+ * via var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Screens render
+ * inside the centered phone-like AppShell content column (Design: Responsive
+ * Architecture). Native scrolling only (Req 17.6).
+ */
+
+/* Review header (icon badge + titles), screen 18. */
+.reviewHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.reviewBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.reviewTitles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Stack of review cards (Final Credit Review, screen 18). */
+.reviewCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- Activation processing (screen 19) --- */
+
+.activatingBlock {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.activatingTitle {
+  margin: 0;
+  max-width: 22ch;
+  color: var(--color-text-primary);
+}
+
+/* --- Activation Success milestone (screen 20) --- */
+
+.milestone {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  padding: 8px 0 4px;
+}
+
+/* Success check badge with a restrained neon ring + wash (no confetti). */
+.milestoneBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--color-green);
+  background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
+  color: var(--color-green);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-green) 10%, transparent);
+}
+
+.milestoneEyebrow {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.milestoneTitle {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* Full-width hero credit figure block on the success milestone. */
+.milestoneHero {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.milestoneMetrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.milestoneActions {
+  width: 100%;
+  margin-top: 8px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Two-column grid of secondary metrics; collapses to one column when narrow. */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 359px) {
+  .metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Centered success block region filling the flow column (screen 20). */
+.successWrap {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

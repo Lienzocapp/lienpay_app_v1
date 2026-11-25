@@ -1,0 +1,56 @@
+/*
+ * ProgressRing — styles.
+ *
+ * A donut progress indicator. All colors via design tokens (Req 1.2, 14.5):
+ * the track uses the border token, the arc uses the neon accent (valid for a
+ * key financial indicator — Req 1.5) with a soft, restrained glow. The centered
+ * value carries the number so progress is not conveyed by color alone (Req 3.6).
+ */
+
+.ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.track {
+  color: var(--color-border);
+  stroke: currentColor;
+}
+
+.arc {
+  color: var(--color-green);
+  stroke: currentColor;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 45%, transparent));
+  transition: stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.value {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.caption {
+  font-family: var(--font-family-base);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-text-secondary);
+}

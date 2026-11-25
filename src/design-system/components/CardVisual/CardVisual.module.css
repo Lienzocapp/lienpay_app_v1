@@ -1,0 +1,93 @@
+/*
+ * CardVisual — styles for the premium LienPay card hero visual.
+ *
+ * A dark stage holding the hand-and-card artwork with an optional soft green
+ * wash behind it. The artwork itself already carries the neon lighting, so the
+ * glow here stays very restrained. Colours exclusively via design tokens
+ * (Req 1.2, 14.5); color-mix values are token-derived.
+ */
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Soft pool of light behind the artwork (the art supplies the rest). */
+.glow {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 68%;
+  height: 62%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--color-green) 12%, transparent),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+/*
+ * `height: auto` (not 100%) so the intrinsic ratio is respected; the
+ * `aspect-ratio` on the size presets reserves the box up front to avoid layout
+ * shift while the artwork loads. The artwork sits on a black field, so it blends
+ * into the dark surface.
+ */
+.image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* --- Footprint presets (responsive, capped so nothing overflows) --- */
+.sizeSm {
+  max-width: 220px;
+}
+
+.sizeSm .image {
+  aspect-ratio: 3 / 2;
+}
+
+.sizeMd {
+  max-width: 330px;
+}
+
+.sizeMd .image {
+  aspect-ratio: 3 / 2;
+}
+
+.sizeLg {
+  max-width: 420px;
+}
+
+.sizeLg .image {
+  aspect-ratio: 3 / 2;
+}
+
+.caption {
+  position: relative;
+  margin: 0;
+  max-width: 32ch;
+  text-align: center;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* Narrow phones: keep the visual comfortably inside the content column. */
+@media (max-width: 360px) {
+  .sizeMd,
+  .sizeLg {
+    max-width: 260px;
+  }
+}

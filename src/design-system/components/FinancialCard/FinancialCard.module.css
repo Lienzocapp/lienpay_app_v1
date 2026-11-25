@@ -1,0 +1,77 @@
+/*
+ * FinancialCard — styles.
+ *
+ * A card presenting a key financial figure with its label. All colors via
+ * design tokens (Req 1.2, 14.5). The standard card is a calm near-black panel;
+ * the `hero` variant is the dominant visual on a screen — a larger, elevated
+ * surface with a subtle token-derived neon wash behind the figure so the
+ * primary number reads instantly and feels premium (Req 3.1, 3.3, 1.5).
+ *
+ * The neon glow/wash is understated (Req 1.6 / no excessive glow) and built
+ * only from the existing tokens (green over panel/bg), introducing no new color.
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+}
+
+.label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.figure {
+  color: var(--color-green); /* key financial figure accent (Req 1.5) */
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/*
+ * Hero variant — the single dominant figure on a screen. A larger elevated
+ * surface with a diagonal neon wash (token-derived translucent green over the
+ * panel) and a soft outer glow. The hero figure is rendered white here (not
+ * neon) so it stays the calm, dominant number against the neon wash; the wash
+ * supplies the accent. This keeps the hierarchy: hero > metric > status.
+ */
+.hero {
+  gap: 10px;
+  padding: 24px 22px 26px;
+  border-color: color-mix(in srgb, var(--color-green) 22%, var(--color-border));
+  border-radius: 22px;
+  background-image: radial-gradient(
+      120% 140% at 100% 0%,
+      color-mix(in srgb, var(--color-green) 16%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-panel) 92%, var(--color-green)),
+      var(--color-panel)
+    );
+  box-shadow: 0 18px 48px color-mix(in srgb, var(--color-green) 12%, transparent);
+}
+
+.hero .figure {
+  color: var(--color-text-primary);
+}
+
+.hero .label {
+  color: color-mix(in srgb, var(--color-green) 70%, var(--color-text-secondary));
+}

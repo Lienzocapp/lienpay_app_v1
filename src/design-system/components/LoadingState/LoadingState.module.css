@@ -1,0 +1,81 @@
+/*
+ * LoadingState — styles.
+ *
+ * A bold neon "infinity" (lemniscate) processing indicator: a dim track plus a
+ * glowing green segment that travels the loop. All colors via design tokens
+ * (Req 1.2, 14.5); the arc uses the neon accent (valid for a progress
+ * indicator — Req 1.5) with a restrained glow. Motion collapses to a static
+ * final state under prefers-reduced-motion (global backstop, Req 4.8/16.6).
+ */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  box-sizing: border-box;
+  padding: 16px;
+  color: var(--color-text-secondary);
+}
+
+.infinity {
+  display: inline-flex;
+  width: 84px;
+  height: 40px;
+}
+
+.large .infinity {
+  width: 120px;
+  height: 57px;
+}
+
+.infinitySvg {
+  width: 100%;
+  height: 100%;
+}
+
+.track {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+/*
+ * The travelling glow segment. `pathLength=100` normalises the dash math so a
+ * 24-unit lit segment sweeps the whole loop; the drop-shadow gives the sharp
+ * neon glow. Ease-in-out over ~1.3s reads premium (not a frantic spinner).
+ */
+.arc {
+  fill: none;
+  stroke: var(--color-green);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 24 76;
+  animation: infinity-travel 1.3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-green) 70%, transparent));
+}
+
+@keyframes infinity-travel {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.large .label {
+  font-size: var(--font-size-title);
+  color: var(--color-text-primary);
+}

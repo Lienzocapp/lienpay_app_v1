@@ -1,0 +1,48 @@
+/*
+ * BrandAvatar — styles.
+ *
+ * A 40px rounded tile. All colors via design tokens (Req 1.2, 14.5). The logo
+ * variant sits on a clean light token surface (Primary White) so colored brand
+ * marks are legible on the dark UI; the fallback variant is a neon-tinted tile
+ * with the brand initial.
+ */
+
+.tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Logo variant — the bundled SVG carries its own brand background + rounding;
+   the tile just clips it to a consistent radius. */
+.tileImage {
+  background-color: transparent;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Fallback variant — neon-tinted tile with the brand initial. */
+.tileInitial {
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+}
+
+.initial {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--color-green);
+  text-transform: uppercase;
+}

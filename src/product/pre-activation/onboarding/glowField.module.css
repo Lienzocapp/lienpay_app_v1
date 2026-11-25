@@ -1,0 +1,112 @@
+/*
+ * GlowField — styles.
+ *
+ * An ambient, animated green backdrop. All color via design tokens (Req 1.2,
+ * 14.5) using color-mix on the neon green. Absolutely positioned behind content
+ * and non-interactive. Motion collapses under prefers-reduced-motion.
+ */
+
+.field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowA,
+.glowB,
+.sheen {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Primary drifting glow (top-right, like the reference). */
+.glowA {
+  top: -80px;
+  right: -60px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 18%, transparent),
+    transparent 68%
+  );
+  filter: blur(4px);
+  animation: glow-drift-a 9s ease-in-out infinite;
+}
+
+/* Secondary deeper glow (lower-left) for depth. */
+.glowB {
+  bottom: -120px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 10%, transparent),
+    transparent 70%
+  );
+  filter: blur(6px);
+  animation: glow-drift-b 11s ease-in-out infinite;
+}
+
+/* Diagonal sheen that sweeps across the screen. */
+.sheen {
+  top: -40%;
+  left: -60%;
+  width: 60%;
+  height: 180%;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-green) 8%, transparent),
+    transparent
+  );
+  animation: sheen-sweep 7s ease-in-out infinite;
+}
+
+@keyframes glow-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-24px, 26px) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes glow-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(0) rotate(18deg);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(260%) rotate(18deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(260%) rotate(18deg);
+    opacity: 0;
+  }
+}

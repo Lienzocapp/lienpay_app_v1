@@ -1,0 +1,1825 @@
+/*
+ * Pre-Activation experience — shared layout styles (screens 6/07/08 + the
+ * Activate_Account_CTA and the pre-activation shell).
+ *
+ * Layout/structure only; ALL color comes exclusively from the design tokens via
+ * var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Screens render inside
+ * the centered phone-like AppShell content column (Design: Responsive
+ * Architecture). Native scrolling only (Req 17.6).
+ */
+
+/* Fills the AppShell content column; leaves room so the CTA sits below content. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.heading {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.subtext {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* Main content region that grows so the CTA can be pushed to the bottom. */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* --- Pre-activation brand chrome (shell top bar) --- */
+
+.brandBar {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 20px;
+  padding-top: max(10px, env(safe-area-inset-top, 0px));
+  background-color: var(--color-bg);
+}
+
+.brandMark {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.brandDot {
+  color: var(--color-green);
+}
+
+/* --- Pre-Activation Home (screen 6) --- */
+
+.homeHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.homeEyebrow {
+  margin: 0;
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.homeHeadline {
+  margin: 0;
+  max-width: 22ch;
+  color: var(--color-text-primary);
+}
+
+/* Supporting benefits — a calm list, not a stack of cards. */
+.benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+}
+
+/* Richer benefit row: check glyph + title + supporting line (Benefits screen). */
+.benefitRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 62%, var(--color-bg));
+}
+
+.benefitBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.benefitTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.benefitText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* --- Pre-activation Learn Q&A cards --- */
+.qaList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qaCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+}
+
+.qaQuestion {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.qaAnswer {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+/* Non-color check glyph in a subtle neon-tinted disc (shape + token accent). */
+.benefitIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--color-green) 16%, transparent);
+  color: var(--color-green);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Stack of supporting cards. */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/*
+ * Activate_Account_CTA wrapper (Req 22.2, 22.16). Pushed below the main content
+ * (`margin-top: auto`) with spacing above it and above the bottom mobile safe
+ * area. The CTA lives inside the scrollable AppShell content column, which sits
+ * ABOVE the BottomNavigation slot — so it never overlaps the bottom nav or
+ * other fixed elements at any width.
+ */
+.ctaWrap {
+  margin-top: auto;
+  padding-top: 24px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: 100%;
+}
+
+/* --- Learn (screen 08) topic list --- */
+
+.topicList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Minimal empty placeholder for content that is not derivable from the source. */
+.placeholder {
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+ * Learn (screen 08) — search + popular questions + expandable topics + help.
+ * Colors exclusively via tokens (Req 1.2, 14.5); color-mix is token-derived.
+ * ========================================================================== */
+
+.learnSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.learnSearchIcon {
+  position: absolute;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.learnSearchInput {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px 0 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+}
+
+.learnSearchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.learnSearchInput:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 1px;
+  border-color: color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+}
+
+.learnSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learnSectionTitle {
+  margin: 4px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* --- FAQ accordion --- */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.faqItem {
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  overflow: hidden;
+}
+
+.faqQuestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faqQuestion:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: -2px;
+}
+
+.faqQuestionText {
+  min-width: 0;
+}
+
+.faqChevron,
+.faqChevronOpen {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--color-text-secondary);
+  transition: transform 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faqChevronOpen {
+  transform: rotate(180deg);
+  color: var(--color-green);
+}
+
+.faqAnswer {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* --- Topic cards --- */
+.topicCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topicCard {
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+  overflow: hidden;
+}
+
+.topicHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.topicHead:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: -2px;
+}
+
+.topicHeadText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.topicTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.topicSummary {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+/* Nested FAQ list inside an expanded topic. */
+.topicCard .faqList {
+  padding: 0 12px 12px;
+}
+
+/* --- Help / reassurance card --- */
+.learnHelp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 24%, var(--color-border));
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-green) 8%, var(--color-panel));
+}
+
+.learnHelpTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.learnHelpText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+ * Benefits (screen 07) — "Ways people use it".
+ * ========================================================================== */
+
+.waysSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.waysTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.waysList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wayRow {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 62%, var(--color-bg));
+}
+
+.wayTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.wayText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+ * REFERENCE-FIDELITY PRE-ACTIVATION SCREENS
+ * (docs/Design/References/Original/Pre-activation: Home, Benefits,
+ * Learn + Learn Detail)
+ *
+ * Screen-scoped classes for the rebuilt Home / Benefits / Learn / Learn-detail
+ * screens. Colors come exclusively from design tokens (Req 1.2, 14.5);
+ * color-mix values are token-derived. No color literals.
+ * ========================================================================== */
+
+/* Consistent vertical rhythm for every pre-activation screen. */
+.screen {
+  gap: 20px;
+}
+
+/* --- Shared personalised header (avatar + greeting + bell) --- */
+.preHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.preAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 34%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.preHeadText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.preGreeting {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+.preWelcome {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+/* Brand word accent used inside a sentence. */
+.preBrand {
+  color: var(--color-green);
+}
+
+.preBell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-primary);
+}
+
+.preBellDot {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-green);
+}
+
+/* Large screen title (e.g. "Benefits"). */
+.screenTitle {
+  margin: 2px 0 0;
+  font-family: var(--font-family-base);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+/* --- Home: rotating value-proposition hero (luxury banner) --- */
+.heroSlide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 14px;
+  box-sizing: border-box;
+  padding: 22px 20px 18px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 18%, var(--color-border));
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-panel) 96%, var(--color-green)) 0%,
+    var(--color-panel) 60%
+  );
+  overflow: hidden;
+  box-shadow: 0 2px 24px color-mix(in srgb, var(--color-green) 6%, transparent),
+              inset 0 1px 0 color-mix(in srgb, var(--color-green) 12%, transparent);
+}
+
+.heroSlideGlow {
+  display: none;
+}
+
+.heroSlideBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 58%;
+}
+
+.heroSlideTitle {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-family-base);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.heroSlideText {
+  margin: 0;
+  max-width: 28ch;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* Glowing pill action inside the hero. */
+.heroSlideCta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  min-height: 36px;
+  margin-top: 4px;
+  padding: 0 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-green) 8%, transparent);
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-green) 15%, transparent);
+}
+
+.heroSlideCta:hover {
+  background: color-mix(in srgb, var(--color-green) 16%, transparent);
+  border-color: var(--color-green);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-green) 28%, transparent);
+}
+
+.heroSlideCta:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.heroSlideCtaIcon {
+  display: inline-flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+.heroSlideCtaIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Carousel dots. */
+.heroDots {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heroDot,
+.heroDotOn {
+  display: block;
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--color-text-secondary) 35%, transparent);
+  cursor: pointer;
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.heroDotOn {
+  width: 24px;
+  border-radius: 999px;
+  background-color: var(--color-green);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-green) 60%, transparent);
+}
+
+.heroDot:focus-visible,
+.heroDotOn:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+/* --- Home: credit-line card (luxury version) --- */
+.limitCard {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 22px 22px 18px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  border-radius: 24px;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)) 0%,
+    var(--color-panel) 55%,
+    color-mix(in srgb, var(--color-panel) 92%, var(--color-green)) 100%
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-green) 10%, transparent) inset,
+    0 4px 32px color-mix(in srgb, var(--color-green) 8%, transparent),
+    0 1px 0 color-mix(in srgb, var(--color-green) 18%, transparent) inset;
+}
+
+.limitCardHead {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.01em;
+  color: var(--color-text-primary);
+}
+
+.limitCardHeadIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-green) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, transparent);
+  color: var(--color-green);
+}
+
+.limitCardHeadIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.limitRange {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 14px 0 0;
+  font-family: var(--font-family-base);
+  font-size: 1.9rem;
+  font-weight: var(--font-weight-black);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background: linear-gradient(90deg, var(--color-green) 0%, color-mix(in srgb, var(--color-green) 70%, var(--color-text-primary)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.limitRangeDash {
+  padding: 0 4px;
+  font-weight: var(--font-weight-medium);
+}
+
+.limitRangeNote {
+  margin: 7px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* Neutralise the shared `.ctaWrap` bottom-pinning inside these cards. */
+.limitCta,
+.bnCta {
+  margin-top: 18px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.limitEffort {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.limitResume {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 2px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.limitResume:hover {
+  opacity: 0.75;
+}
+
+.limitResume:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.limitResumeIcon {
+  display: inline-flex;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+}
+
+.limitResumeIcon svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* --- Home: product-fact tiles (luxury) --- */
+.factRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.factTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 16px 8px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 14%, var(--color-border));
+  border-top: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-panel) 80%, var(--color-green)) 0%,
+    color-mix(in srgb, var(--color-panel) 60%, var(--color-bg)) 100%
+  );
+  text-align: center;
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-green) 5%, transparent);
+}
+
+.factIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-green) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-green) 22%, transparent);
+  color: var(--color-green);
+}
+
+.factText {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-base);
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+}
+
+/* --- Shared category strip (Home "everyday needs" / Benefits "ways") --- */
+.everyday {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.everydayTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+}
+
+.everydayRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.everydayTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.everydayIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 20%, var(--color-border));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-panel) 80%, var(--color-green)) 0%,
+    color-mix(in srgb, var(--color-panel) 60%, var(--color-bg)) 100%
+  );
+  color: var(--color-green);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--color-green) 8%, transparent);
+}
+
+.everydayTile:hover .everydayIcon {
+  border-color: color-mix(in srgb, var(--color-green) 55%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-green) 22%, transparent);
+  transform: translateY(-2px);
+}
+
+.everydayLabel {
+  font-family: var(--font-family-base);
+  font-size: 0.65rem;
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Benefits: hero --- */
+.bnHero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  border-radius: 22px;
+  background-image: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--color-panel) 88%, var(--color-green)),
+    var(--color-panel) 66%
+  );
+  overflow: hidden;
+}
+
+.bnHeroGlow {
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 14%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.bnHeroBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 38%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.bnHeroTitle {
+  position: relative;
+  margin: 14px 0 0;
+  font-family: var(--font-family-base);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.bnHeroTitleAccent {
+  color: var(--color-green);
+}
+
+.bnHeroText {
+  position: relative;
+  margin: 8px 0 0;
+  max-width: 36ch;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* Value → credit-line conversion pair. */
+.bnConvert {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.bnConvertBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 0;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
+}
+
+.bnConvertLabel {
+  font-family: var(--font-family-base);
+  font-size: 0.5625rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--color-text-secondary);
+}
+
+.bnConvertValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.bnConvertArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.bnConvertArrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bnHeroPill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  box-sizing: border-box;
+  margin: 16px 0 0;
+  padding: 11px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 26%, var(--color-border));
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-green) 8%, transparent);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.bnHeroPillIcon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--color-green);
+}
+
+.bnHeroPillIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Benefits: benefit rows --- */
+.bnRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bnRow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: var(--color-panel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.bnRow:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.bnRowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.bnRowBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bnRowTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.bnRowText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.bnRowChevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-secondary);
+}
+
+.bnRowChevron svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Benefits: CTA block --- */
+.bnCtaBlock {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding-top: 6px;
+  padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+}
+
+.bnCtaNote {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+/* --- Learn: header --- */
+.lnHead {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-top: 4px;
+}
+
+.lnHeadBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 34%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.lnHeadTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 1.625rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+.lnHeadSub {
+  margin: 2px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+/* Section head with a trailing text action ("View all"). */
+.lnSectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lnViewAll {
+  border: none;
+  background: transparent;
+  padding: 4px 0;
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.lnViewAll:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* --- Learn: question rows --- */
+.lnRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lnRow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 14px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.lnRow:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.lnRowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.lnRowIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lnRowText {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+  color: var(--color-text-primary);
+}
+
+.lnRowChevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-secondary);
+}
+
+.lnRowChevron svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lnEmpty {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* --- Learn: explore-topics grid --- */
+.lnTopicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lnTopicTile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: var(--color-panel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.lnTopicTile:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.lnTopicIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.lnTopicIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lnTopicTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.lnTopicSummary {
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* --- Learn: still-need-help card --- */
+.lnHelp {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  border-radius: 18px;
+  background-color: color-mix(in srgb, var(--color-green) 7%, var(--color-panel));
+}
+
+.lnHelpIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.lnHelpBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.lnHelpTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.lnHelpText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+/* --- Learn detail --- */
+.ldTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.ldBack {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.ldBack:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.ldTopic {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  color: var(--color-green);
+}
+
+.ldTitle {
+  margin: 4px 0 0;
+  font-family: var(--font-family-base);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.ldHero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  border-radius: 22px;
+  background-image: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--color-panel) 88%, var(--color-green)),
+    var(--color-panel) 66%
+  );
+  overflow: hidden;
+}
+
+.ldHeroGlow {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 13%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.ldHeroBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 38%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.ldHeroBadge svg {
+  width: 26px;
+  height: 26px;
+}
+
+.ldHeadline {
+  position: relative;
+  margin: 15px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-green);
+}
+
+.ldAnswer {
+  position: relative;
+  margin: 9px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.ldPoints {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ldPoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.ldPointIcon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: var(--color-green);
+}
+
+.ldPointIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ldPointText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: 1.45;
+  color: var(--color-text-primary);
+}
+
+.ldImportant {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 26%, var(--color-border));
+  border-radius: 18px;
+  background-color: color-mix(in srgb, var(--color-green) 7%, var(--color-panel));
+}
+
+.ldImportantIcon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: var(--color-green);
+}
+
+.ldImportantIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ldImportantTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.ldImportantText {
+  margin: 5px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* --- Narrow-phone fallbacks (<=360px): keep strips readable --- */
+@media (max-width: 360px) {
+  .everydayRow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lnTopicGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .limitRange {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- Reference alignment overrides (must follow the base rules) --- */
+
+/*
+ * Section labels in the references read as title-case white headings
+ * ("Popular questions", "Explore topics"), not small grey uppercase.
+ */
+.learnSectionTitle {
+  margin: 2px 0 0;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text-primary);
+}
+
+/* Topic summary line on the topic question-list screen. */
+.ldTopicSummary {
+  margin: 4px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+ * REFERENCE HERO ARTWORK LAYERS
+ *
+ * Static renders from `public/assets/visuals`, placed as decorative layers
+ * behind/beside the hero copy exactly as the references show. Each render sits
+ * on a dark or transparent field, so no plate or mask is needed; a token-derived
+ * scrim keeps the overlaid text at full contrast.
+ * ========================================================================== */
+
+/* Home hero: photo occupies the right of the card, copy sits over the left. */
+.heroSlideArt {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 58%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% center;
+  opacity: 0.82;
+  pointer-events: none;
+  user-select: none;
+}
+
+/*
+ * Scrim over the artwork: opaque at the left (behind the copy) fading out to
+ * the right so the photo reads cleanly. Uses the panel token, so it tracks the
+ * card surface exactly.
+ */
+.heroSlide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(
+    95deg,
+    var(--color-panel) 38%,
+    color-mix(in srgb, var(--color-panel) 88%, transparent) 62%,
+    color-mix(in srgb, var(--color-panel) 30%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+/* Lift the hero copy + dots above the artwork and its scrim. */
+.heroSlideBody,
+.heroDots {
+  z-index: 2;
+}
+
+/* Benefits hero: transparent render anchored to the upper-right corner. */
+.bnHeroArt {
+  position: absolute;
+  top: -6px;
+  right: -14px;
+  width: 58%;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Keep the Benefits copy above the artwork. */
+.bnHeroTitle,
+.bnHeroText,
+.bnConvert,
+.bnHeroPill,
+.bnHeroBadge {
+  z-index: 2;
+}
+
+/* Learn detail: banner render across the top of the answer card. */
+.ldHeroArt {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-height: 150px;
+  margin: -4px 0 12px;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 360px) {
+  .heroSlideArt {
+    width: 56%;
+  }
+
+  .bnHeroArt {
+    width: 50%;
+  }
+}

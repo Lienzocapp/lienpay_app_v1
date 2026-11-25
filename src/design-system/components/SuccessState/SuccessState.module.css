@@ -1,0 +1,51 @@
+/*
+ * SuccessState — styles.
+ *
+ * A centered success block. All colors via design tokens (Req 1.2, 14.5). The
+ * check icon uses the neon accent (valid token usage for a success state —
+ * Req 1.5) reinforced by the non-color glyph shape (Req 3.6).
+ */
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  color: var(--color-text-primary);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--color-green);
+  color: var(--color-green);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.title {
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subheading);
+  color: var(--color-text-primary);
+}
+
+.message {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+.action {
+  margin-top: 4px;
+  width: 100%;
+}

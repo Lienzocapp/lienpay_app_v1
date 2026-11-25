@@ -1,0 +1,51 @@
+/*
+ * ErrorState — styles.
+ *
+ * A centered error block. All colors via design tokens (Req 1.2, 14.5). No red
+ * is introduced (only the seven tokens exist); the error is conveyed by the "!"
+ * glyph shape (non-color indicator, Req 3.6) plus high-contrast text.
+ */
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  color: var(--color-text-primary);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.title {
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subheading);
+  color: var(--color-text-primary);
+}
+
+.message {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+.action {
+  margin-top: 4px;
+  width: 100%;
+}

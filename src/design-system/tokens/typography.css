@@ -1,0 +1,169 @@
+/*
+ * LienPay — Centralized Typography Scale (single source of truth)
+ * ----------------------------------------------------------------
+ * This file is the ONE central source for every typographic style used across
+ * both experiences (Landing_Page and Product_Application) and all reusable
+ * components. Screens/components MUST consume these tokens/classes rather than
+ * declaring ad-hoc font sizes, weights, or line-heights.
+ *
+ * Requirements honored here:
+ *  - 2.1  Satoshi is the sole primary typeface; a single clean sans-serif
+ *         family is the ONLY fallback (the `sans-serif` generic keyword).
+ *  - 2.3  Key financial values (Credit_Limit, Available_Credit, Portfolio
+ *         Value, Outstanding Amount, and other key financial metrics) render
+ *         at a font size at least 1.5x the adjacent label/body text. This is
+ *         guaranteed structurally: the financial-figure sizes are DERIVED from
+ *         the body size via calc(... * 1.75), i.e. always >= 1.5x.
+ *  - 2.4  All typographic scale definitions (size, weight, line-height per
+ *         style) are exposed from this single central source.
+ *  - 2.5  A defined DEFAULT body text style exists; text referencing an
+ *         undefined style falls back to it (via `body` defaults + `.text-body`).
+ *  - 14.2 Single centralized source consumed by all screens/components.
+ *
+ * NOTE: The @font-face bundling of Satoshi is handled separately (Task 2.3).
+ *       This file only references the family names in the font-family stack.
+ */
+
+:root {
+  /* --- Font families (Req 2.1) ---
+   * Primary: Satoshi. Fallback: a single clean sans-serif family (the
+   * `sans-serif` generic keyword). No other families are introduced (Req 2.6).
+   */
+  --font-family-base: "Satoshi", sans-serif;
+
+  /* --- Font weights (Satoshi weight axis) --- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* --- Base size anchor ---
+   * Body is the anchor from which the financial-figure sizes are derived so the
+   * >= 1.5x rule (Req 2.3) is enforced by construction rather than by hand.
+   */
+  --font-size-body: 1rem;        /* 16px @ 16px root */
+
+  /* --- Font size scale (per named text style) --- */
+  --font-size-display: 2.5rem;   /* 40px — Landing hero / marketing display */
+  --font-size-heading: 1.75rem;  /* 28px — screen (h1) titles */
+  --font-size-subheading: 1.375rem; /* 22px — section (h2) titles */
+  --font-size-title: 1.125rem;   /* 18px — card / group titles */
+  /* --font-size-body defined above (default body text — Req 2.5) */
+  --font-size-caption: 0.875rem; /* 14px — supporting / secondary text */
+  --font-size-label: 0.8125rem;  /* 13px — labels adjacent to financial values */
+  --font-size-button: 1rem;      /* 16px — button labels */
+
+  /* --- Key financial figure sizes (Req 2.3) ---
+   * DERIVED from the body size so they are ALWAYS >= 1.5x the adjacent body
+   * and label text. 1.75x body = 28px (>= 1.5x body 16px, = 2.15x label 13px).
+   * The hero variant is used for the single primary/hero figure on a screen.
+   */
+  --font-size-financial-figure: calc(var(--font-size-body) * 1.75);      /* 28px */
+  --font-size-financial-figure-hero: calc(var(--font-size-body) * 2.75); /* 44px */
+
+  /* --- Line heights (per named text style) --- */
+  --line-height-display: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-subheading: 1.3;
+  --line-height-title: 1.35;
+  --line-height-body: 1.5;
+  --line-height-caption: 1.45;
+  --line-height-label: 1.4;
+  --line-height-button: 1.2;
+  --line-height-financial-figure: 1.15;
+}
+
+/*
+ * Default body text style (Req 2.5).
+ * Establishes the fallback typographic style for the whole app: any element
+ * that does not opt into a specific `.text-*` style inherits the default body
+ * size, weight, line-height, and the Satoshi -> sans-serif family stack.
+ */
+html {
+  font-family: var(--font-family-base);
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+}
+
+/* --- Named text style utility classes (consumed by screens/components) --- */
+
+.text-display {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-display);
+}
+
+.text-heading {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+}
+
+.text-subheading {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subheading);
+}
+
+.text-title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+}
+
+/* Default body text style (Req 2.5) — also the fallback for undefined styles. */
+.text-body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+}
+
+.text-caption {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-caption);
+}
+
+/* Label style — the reference for the >= 1.5x financial-figure rule (Req 2.3). */
+.text-label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+}
+
+.text-button {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-button);
+}
+
+/*
+ * Key financial figure style (Req 2.3).
+ * Size is derived as 1.75x the body size, guaranteeing it is at least 1.5x the
+ * adjacent label/body text on the same screen. Use `.text-financial-figure`
+ * for standard key metrics and `.text-financial-figure--hero` for the single
+ * hero/primary figure on a screen.
+ */
+.text-financial-figure {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-financial-figure);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-financial-figure);
+}
+
+.text-financial-figure--hero {
+  font-size: var(--font-size-financial-figure-hero);
+}

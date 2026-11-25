@@ -1,0 +1,19 @@
+{
+  "name": "LienPay",
+  "short_name": "LienPay",
+  "description": "LienPay — a credit line backed by your mutual funds. Secure. Simple. Trusted.",
+  "start_url": "./#/app/pre/onboarding/splash",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

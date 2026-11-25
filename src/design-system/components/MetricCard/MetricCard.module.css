@@ -1,0 +1,57 @@
+/*
+ * MetricCard — styles.
+ *
+ * A compact SECONDARY metric (Credit_Limit / Used / LTV / Utilisation). All
+ * colors via design tokens (Req 1.2, 14.5). Deliberately quieter than the hero
+ * FinancialCard so a screen reads as a clear hierarchy (hero > metric >
+ * status): a calm panel surface with a hairline, an uppercase micro-label, and
+ * a white value. The value is the financial-figure size (>= 1.5x its label,
+ * Req 2.3) but the muted surface keeps it visually subordinate to the hero.
+ *
+ * The emphasis variant tints the value neon for a single highlighted metric
+ * (valid token usage for key figures — Req 1.5).
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+  color: var(--color-text-primary);
+}
+
+.label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/*
+ * Descendant selector (specificity 0,2,0) so this reliably wins over the global
+ * `.text-financial-figure` size regardless of stylesheet order: metric values
+ * sit at the subheading size (22px) — still >= 1.5x the 13px label (Req 2.3) —
+ * so they stay subordinate to the 44px hero and never overflow the compact
+ * two-up grid at 390px (no horizontal scroll).
+ */
+.card .value {
+  font-size: var(--font-size-subheading);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.valueEmphasis {
+  color: var(--color-green);
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}

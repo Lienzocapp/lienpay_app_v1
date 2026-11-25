@@ -1,0 +1,47 @@
+/**
+ * LienPay Design System — Color Tokens (single source of truth)
+ *
+ * These seven color values are LOCKED by the source specification and MUST NOT
+ * be altered or extended. Every screen and component consumes color exclusively
+ * through these CSS custom properties — no component may hard-code a color.
+ *
+ * Requirements: 1.1 (exact seven values), 1.2 (single central source),
+ * 1.4 (Background base surface), 1.9 (Secondary Grey for supporting text),
+ * 1.10 (Primary White for primary text), 14.2 (authored exactly once).
+ * Design: Technology Choices (CSS Custom Properties in a single tokens.css),
+ * Folder Structure (design-system/tokens/tokens.css).
+ */
+
+:root {
+  /* Surfaces */
+  --color-bg: #050505; /* Background — base surface color for 100% of screens (Req 1.4) */
+  --color-panel: #111111; /* Panel — near-black card/panel surface */
+  --color-border: #252525; /* Border — dark card/component borders */
+
+  /* Text */
+  --color-text-primary: #ffffff; /* Primary White — primary text (Req 1.10) */
+  --color-text-secondary: #a0a0a0; /* Secondary Grey — supporting/secondary text (Req 1.9) */
+
+  /* Brand green — exact Lienzo brand colour, locked from approved brand asset.
+     HEX #4ADE80 · RGB 74 222 128 · Design token: --color-green
+     Every accent, button, gauge, selected state, icon, border, progress
+     indicator and controlled glow effect MUST reference this token. Do NOT
+     approximate or introduce a secondary green. */
+  --color-green: #4ade80; /* Lienzo Brand Green — locked brand accent */
+  --color-green-bright: #86efac; /* Lienzo Brand Green Light — highlight / hover ramp */
+
+  /*
+   * Semantic warning/urgency accent (amber). This is the SINGLE authoritative
+   * definition of the warning color and is intentionally added here (the one
+   * allowlisted token source) so urgency cues from the LienPay reference — e.g.
+   * the "8 days left" repayment countdown — use one centralized semantic token
+   * rather than scattered ad-hoc literals. Green remains the sole brand accent;
+   * amber is reserved strictly for time-sensitive/warning affordances.
+   */
+  --color-warning: #f5a524; /* Warning Amber — urgency/time-sensitive accent */
+
+  /* Rewards accent — the violet used for the Rewards tile in the Home
+     reference. Reserved strictly for the rewards affordance; green stays the
+     brand accent. */
+  --color-reward: #8b5cf6; /* Reward Violet — rewards affordance accent */
+}

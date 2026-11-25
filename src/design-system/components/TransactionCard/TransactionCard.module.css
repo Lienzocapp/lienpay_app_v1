@@ -1,0 +1,59 @@
+/*
+ * TransactionCard — styles.
+ *
+ * Rounded corners, dark border, near-black panel surface (Req 3.1, 3.3). All
+ * colors via design tokens (Req 1.2, 14.5). Interactive rows meet the 44px
+ * touch target (Req 15.1) with a visible focus indicator (Req 3.7). The amount
+ * uses the financial-figure typography style but the primary text token (a
+ * transaction amount is not the hero figure, so it is not tinted neon).
+ */
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.interactive {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.interactive:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.merchant {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.meta {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.amount {
+  flex: 0 0 auto;
+  color: var(--color-text-primary);
+}

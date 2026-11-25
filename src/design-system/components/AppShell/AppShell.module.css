@@ -1,0 +1,102 @@
+/*
+ * AppShell — styles.
+ *
+ * The Product_Application frame: a top bar, a scrollable content region, and a
+ * bottom navigation, laid out as a full-height column. All colors via design
+ * tokens (Req 1.2, 14.5); the base surface uses the Background token (Req 1.4).
+ *
+ * The content region is a centered phone-like column so the mobile UI is never
+ * stretched at wider widths (Design: Responsive Architecture). Native scrolling
+ * only (Design: Product motion / Req 17.6).
+ */
+
+/*
+ * The WHOLE product frame is a centered phone-like column (Req 15.4): the
+ * TopBar, content, and BottomNavigation all live inside one max-width column
+ * that is centered at every width, so the mobile UI is never stretched to
+ * desktop width. Below the column width it is fluid full-width (Req 15.1,
+ * 15.5). `min-height: 100dvh` fills short viewports so the column and its
+ * bottom nav sit against the base surface; the page scrolls natively (Req 17.6).
+ *
+ * At wider widths a premium centered "device" frame is presented: the phone
+ * column is lifted off a slightly darker backdrop with a hairline edge, so on
+ * desktop the product reads as a real mobile app rather than a stretched page.
+ */
+.shell {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: 480px; /* centered phone-like shell (Req 15.4) */
+  margin-inline: auto;
+  height: 100dvh;       /* real height so flex children distribute correctly */
+  overflow: hidden;     /* frame stays fixed; only the content area scrolls */
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/*
+ * Top bar slot — pinned to the top of the shell, so the frame feels like native app chrome.
+ */
+.topSlot {
+  flex: 0 0 auto;
+  z-index: 20;
+  background-color: var(--color-bg);
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0; /* allow shrink within fixed-height shell */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: 12px 16px 24px;
+  box-sizing: border-box;
+  overflow-y: auto;     /* native scrolling inside content area only */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-border) 80%, transparent) transparent;
+}
+
+.content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-border) 80%, transparent);
+  border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-green);
+}
+
+/*
+ * Bottom navigation slot — pinned at the bottom of the shell. As a flex item
+ * outside the scrollable content area, it NEVER moves or scrolls up with content.
+ * Honors the mobile safe area.
+ */
+.bottomSlot {
+  flex: 0 0 auto;
+  z-index: 20;
+  background-color: var(--color-bg);
+}
+
+/*
+ * Desktop presentation: on viewports comfortably wider than the phone column,
+ * lift the frame onto a subtle darker backdrop with a hairline border and
+ * rounded top so it reads as a centered device, not a stretched website.
+ */
+@media (min-width: 768px) {
+  .shell {
+    border-inline: 1px solid var(--color-border);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-border) 60%, transparent),
+      0 24px 80px color-mix(in srgb, var(--color-bg) 80%, transparent);
+  }
+}

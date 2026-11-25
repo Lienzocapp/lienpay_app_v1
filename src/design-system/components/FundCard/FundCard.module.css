@@ -1,0 +1,111 @@
+/*
+ * FundCard — styles.
+ *
+ * A selectable card rendered as a full-width toggle button. Rounded corners,
+ * dark border, near-black panel surface (Req 3.1, 3.3). All colors via design
+ * tokens (Req 1.2, 14.5). The SELECTED state uses a neon accent border, a
+ * token-derived neon wash, AND a filled non-color check glyph (Req 3.6), so
+ * selection reads instantly and tactilely without relying on color alone.
+ * 44px min touch target (Req 15.1), visible focus indicator (Req 3.7).
+ */
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--color-text-secondary) 40%, var(--color-border));
+}
+
+.card:active:not(:disabled) {
+  transform: scale(0.995);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Selected: neon accent border + subtle neon wash (check glyph reinforces it). */
+.selected {
+  border-color: var(--color-green);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-green) 12%, var(--color-panel)),
+    var(--color-panel)
+  );
+}
+
+/* Check control — an empty rounded box that fills with neon when selected. */
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  color: transparent;
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  transition: background-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selected .check {
+  border-color: var(--color-green);
+  background-color: var(--color-green);
+  color: var(--color-bg);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.meta {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.value {
+  flex: 0 0 auto;
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}

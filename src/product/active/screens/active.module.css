@@ -1,0 +1,2638 @@
+/*
+ * Active_Account_Experience screen layout.
+ *
+ * Layout/structure only; ALL color comes exclusively from design tokens via
+ * var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Screens render inside
+ * the centered phone-like AppShell content column (max-width 480px, 16px
+ * padding — Design: Responsive Architecture). Native scrolling only (Req 17.6).
+ */
+
+/* Minimal placeholder tabs fill the AppShell content column height. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: calc(100vh - 32px);
+  width: 100%;
+}
+
+/* --- Active Home dashboard (task 13.2) --- */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.heading {
+  margin: 0;
+  padding-top: 4px;
+  color: var(--color-text-primary);
+}
+
+/*
+ * Greeting block — a quiet muted "Good morning, {name}" line above the dominant
+ * "Here's your LienPay overview" headline (reference hierarchy: the overview
+ * line is the large bold white headline; the greeting is the smaller support
+ * line). Matches Original + Banani_Refined Home references.
+ */
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 2px;
+}
+
+.greetingEyebrow {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+.greetingTitle {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-family-base);
+  font-size: 1.625rem; /* 26px — dominant overview headline (reference) */
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+/*
+ * Supporting metric grid — a tidy 2x2. Values are capped at the subheading size
+ * inside MetricCard so they never overflow the two-up columns at 390px (no
+ * horizontal scroll).
+ */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Pay entry point sits below the credit position, spaced above the safe area. */
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+/* --- Recent activity glance (Active Home) --- */
+
+.recent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recentHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.recentTitle {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* Quiet text button that routes to the Transactions experience. */
+.viewAll {
+  flex: 0 0 auto;
+  padding: 6px 4px;
+  border: none;
+  background: transparent;
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.viewAll:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/*
+ * Grouped activity list — a single panel surface with hairline-separated rows
+ * rather than a stack of individual cards, so Home reads as a calm native list
+ * (not a collection of dark cards) and stays distinct from the Transactions
+ * screen's full cards.
+ */
+.recentList {
+  list-style: none;
+  margin: 0;
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+}
+
+.recentRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+.recentRow:last-child {
+  border-bottom: none;
+}
+
+.recentMerchant {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.recentAmount {
+  flex: 0 0 auto;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* --- Transactions screen (task 14.1) --- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 16px;
+}
+
+/* Transaction rows: reset list styling; the rows are shared TransactionCards. */
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Empty-state message (Req 11.7). */
+.empty {
+  margin: 0;
+  padding: 24px 0;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* Small uppercase context overline above a screen heading (premium rhythm). */
+.eyebrow {
+  margin: 0;
+  padding-top: 2px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+/* Quiet count/summary line under a list heading. */
+.countLine {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* --- Repayments: auto-debit status row --- */
+
+.autoDebitRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 24%, var(--color-border));
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-green) 8%, var(--color-panel));
+}
+
+.autoDebitDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.autoDebitText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* --- Premium empty state (Notifications) --- */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 40px 16px;
+}
+
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subheading);
+  color: var(--color-text-primary);
+}
+
+/* --- Profile verification status list --- */
+
+.verifyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+  padding: 6px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+}
+
+.verifyRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+.verifyRow:last-child {
+  border-bottom: none;
+}
+
+.verifyRowLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+}
+
+.verifyStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green);
+}
+
+.verifyStatusDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Section label above a grouped block (Profile / Learn). */
+.sectionLabel {
+  margin: 8px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* --- Learn topic cards --- */
+
+.learnList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learnCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+}
+
+.learnCardTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.learnCardBody {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+/* --- Repayments screen (tasks 15.1 + 15.2) --- */
+
+/* Secondary section heading (e.g. "Recent repayments"). */
+.subheading {
+  margin: 8px 0 0;
+  color: var(--color-text-primary);
+}
+
+/* Bottom-sheet content column (confirm / processing / success / error). */
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* A single label/value summary row inside the confirmation sheet. */
+.summaryRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summaryLabel {
+  color: var(--color-text-secondary);
+}
+
+.summaryValue {
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+/* Stacked sheet action buttons. */
+.sheetActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* --- Portfolio screen (tasks 17.1 + 17.2) --- */
+
+/* Fund-load spinner wrapper (centered within the content column). */
+.loadingWrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/*
+ * Provisional-data disclosure note (non-authoritative fund content). Mirrors the
+ * Fund Selection screen pattern; layout/token only (Req 1.2, 14.5, 18.1, 20.4).
+ */
+.provisionalNote {
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-panel);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+/*
+ * Potential Credit Limit Increase — in-screen section/affordance (task 17.2).
+ * A card local to the Portfolio screen; it is never a bottom-nav tab or route.
+ */
+.increaseCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+}
+
+.increaseHeading {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.increaseBody {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* --- Profile screen (task 18.2) --- */
+
+/*
+ * Account identity block — the user's name from central session state. Layout/
+ * token only (Req 1.2, 14.5); no hard-coded color.
+ */
+.profileIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+}
+
+/* Account-management affordance list (stacked full-width controls). */
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Sign out — a quiet, subordinate full-width control (functional: resets the
+   demo and restarts at Splash). */
+.signOut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.signOut:hover {
+  color: var(--color-text-primary);
+  border-color: color-mix(in srgb, var(--color-text-secondary) 45%, var(--color-border));
+}
+
+.signOut:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+ * Active Home — reference reconstruction (dense, mobile-native)
+ * ========================================================================== */
+
+/* PRIMARY CREDIT CARD — layered panel with a restrained green glow. */
+.creditCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 20%, var(--color-border));
+  border-radius: 20px;
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 88%, var(--color-green)),
+    var(--color-panel)
+  );
+  overflow: hidden;
+}
+
+/* Soft radial green glow in the top-right corner (subtle, single element),
+   with a slow living pulse so the card feels alive (collapses under
+   prefers-reduced-motion via the global backstop). */
+.creditGlow {
+  position: absolute;
+  top: -50px;
+  right: -36px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 34%, transparent),
+    transparent 68%
+  );
+  pointer-events: none;
+  animation: credit-glow-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes credit-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.creditTop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.creditFigureBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.creditLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Prominent, but not screen-consuming (denser than the old 44px hero). */
+.creditFigure {
+  font-family: var(--font-family-base);
+  font-size: 2rem; /* 32px */
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.creditSub {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* Inline metric columns inside the hero (reference density). */
+.creditMetrics {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+}
+
+.creditMetric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.creditMetricLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.creditMetricValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.creditActions {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}
+
+/* Compact neon CTA pill (contextual — not a full-width web button). */
+.pillPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 12px;
+  background-image: linear-gradient(180deg, var(--color-green-bright), var(--color-green));
+  color: var(--color-bg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--color-green) 24%, transparent);
+  transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pillPrimary:active {
+  transform: scale(0.98);
+}
+
+.pillPrimary:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.pillPrimary:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* Quiet secondary pill. */
+.pillGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.pillGhost:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* Two compact status cards (next repayment + credit health). */
+.dualRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.miniCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.miniLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.miniValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+.miniAction {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: color-mix(in srgb, var(--color-green) 16%, var(--color-panel));
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.miniAction:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.miniHealth {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.miniHealthDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+  font-size: 11px;
+  line-height: 1;
+}
+
+.miniHealthText {
+  color: var(--color-text-primary);
+}
+
+.miniHint {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* Supporting product info cards (interest-free / rewards). */
+.supportRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.supportCard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.supportLabel {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.supportValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  color: var(--color-green);
+}
+
+/* Recent activity — compact rows with a merchant avatar. */
+.activityList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.activityRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+}
+
+.activityRow:last-child {
+  border-bottom: none;
+}
+
+/* Merchant avatar — initial in a neon-tinted square (no invented category). */
+.activityAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.activityBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.activityMerchant {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activityMeta {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.activityAmount {
+  flex: 0 0 auto;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* --- Transactions: recent-spending visualization (real-data bars) --- */
+
+.spendCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+    var(--color-panel)
+  );
+}
+
+.spendHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.spendLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.spendTotalBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spendTotal {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-green);
+}
+
+/* Trailing column for a transaction row: amount + status. */
+.activityTrailing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex: 0 0 auto;
+}
+
+.activityStatus {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green);
+}
+
+.spendBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 72px;
+}
+
+.spendBar {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 6px 6px 2px 2px;
+  background-image: linear-gradient(
+    180deg,
+    var(--color-green),
+    color-mix(in srgb, var(--color-green) 35%, var(--color-panel))
+  );
+}
+
+/* ==========================================================================
+ * Active Home — Figma reference reconstruction (Home 1, node 4:3)
+ * New Home-only classes. Shared classes (.creditCard, .activity*, .increaseCard,
+ * .spendCard, .autoDebitRow, .sheet, .profileIdentity, .learnCard) are NOT
+ * touched here so Transactions/Repayments/Portfolio/Profile/Learn are unchanged.
+ * Colors exclusively via tokens (Req 1.2, 14.5); color-mix is token-derived.
+ * ========================================================================== */
+
+/* --- Primary credit hero card --- */
+.heroCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--color-green) 34%, var(--color-border));
+  border-radius: var(--radius-3xl);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 94%, var(--color-green)),
+    var(--color-panel) 68%
+  );
+  box-shadow: var(--elevation-card);
+  overflow: hidden;
+}
+
+/* Very restrained static tint (reference is nearly flat — no bright glow). */
+.heroGlow {
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 9%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.heroTop {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heroFigureBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.heroEyebrow {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.heroFigure {
+  font-family: var(--font-family-base);
+  font-size: 2.5rem; /* 40px — dominant hero financial figure (reference) */
+  font-weight: var(--font-weight-black);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+/* "Used ₹X of ₹Y ›" — dark translucent pill with a subtle border + chevron. */
+.usedPill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 7px 10px 7px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1;
+}
+
+.usedPill:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.usedPillKey {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.usedPillVal {
+  color: var(--color-green);
+  font-weight: var(--font-weight-bold);
+}
+
+.usedPillOf {
+  color: var(--color-text-secondary);
+}
+
+.usedPillChevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+.heroProgress {
+  position: relative;
+}
+
+/* 3-column divided footer (Credit limit / Account type / Interest-free). */
+.heroFooter {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+}
+
+.heroFooterCol {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding-left: 12px;
+  border-left: 1px solid color-mix(in srgb, var(--color-border) 75%, transparent);
+}
+
+/* First column carries no leading divider. */
+.heroFooterCol:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.heroFooterLabelRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heroFooterLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heroFooterValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.heroFooterAccent {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-green);
+}
+
+.heroInfoIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+/* --- Circular icon holders (leading glyphs on cards) --- */
+.iconHolder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-holder-md);
+  height: var(--icon-holder-md);
+  flex: 0 0 auto;
+  border-radius: var(--radius-circle);
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.iconHolderSm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-holder-sm);
+  height: var(--icon-holder-sm);
+  flex: 0 0 auto;
+  border-radius: var(--radius-circle);
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+/* Rewards icon accent — violet holder (reference), overrides the green tint. */
+.iconHolderReward {
+  border-color: color-mix(in srgb, var(--color-reward) 36%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-reward) 16%, var(--color-panel));
+  color: var(--color-reward);
+}
+
+/* --- Next payment card --- */
+.payCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.payCardMain {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.payCardLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.payCardAmount {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.payCardDue {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.3;
+  color: var(--color-text-secondary);
+}
+
+.payCardDot {
+  color: var(--color-text-secondary);
+}
+
+/* Urgency countdown — the single semantic warning token (amber). */
+.payCardUrgent {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-bold);
+}
+
+.payCardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.repayPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 var(--space-8);
+  border: none;
+  border-radius: var(--radius-md);
+  background-image: linear-gradient(180deg, var(--color-green-bright), var(--color-green));
+  color: var(--color-bg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--glow-green);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.repayPrimary:active {
+  transform: scale(0.98);
+}
+
+.repayPrimary:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+.repayGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.repayGhost:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* --- Credit health card --- */
+.healthCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.healthLead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.healthLeadText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.healthLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.healthStatus {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-green);
+}
+
+.healthSub {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.3;
+  color: var(--color-text-secondary);
+}
+
+.healthLtv {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0 0 auto;
+  text-align: right;
+  min-width: 0;
+}
+
+.healthLtvLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.healthLtvValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.05;
+  color: var(--color-green);
+}
+
+.healthLtvSub {
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--color-text-secondary);
+}
+
+/* Credit-health gauge column: the arc carries "Safe"; the caption sits BELOW
+   the gauge (never overlapping the arc), matching the reference. */
+.healthGauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 0 0 auto;
+}
+
+.healthGaugeCaption {
+  max-width: 92px;
+  font-family: var(--font-family-base);
+  font-size: 0.625rem;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* --- Recent activity (Home) — grouped panel + interest-free tag + chevron --- */
+.hActivityPanel {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-1) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.hActivityTrailing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+
+/* Interest-free tag — small neon-tinted pill. */
+.hTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hChevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--color-text-secondary);
+}
+
+.viewAllChevron {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  color: var(--color-green);
+}
+
+/* --- Support cards (Interest-free tracker + Rewards) --- */
+.supportText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.supportAccentInline {
+  color: var(--color-green);
+  font-weight: var(--font-weight-bold);
+}
+
+/* --- Increase available credit — wide card --- */
+.boostCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  border-radius: 18px;
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+    var(--color-panel) 65%
+  );
+}
+
+.boostBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.boostTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.boostText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+.boostCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 12px;
+  background-image: linear-gradient(180deg, var(--color-green-bright), var(--color-green));
+  color: var(--color-bg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--color-green) 20%, transparent);
+  transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.boostCta:active {
+  transform: scale(0.98);
+}
+
+.boostCta:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+.boostCtaChevron {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Support cards get a touch more breathing room + a leading icon (Home only). */
+.supportCard {
+  gap: 8px;
+  padding: 16px;
+}
+
+/* ==========================================================================
+ * Portfolio — reference reconstruction (node 8:4). Portfolio-scoped `.pf*`
+ * classes only; shared classes (.creditCard, .activity*, .increaseCard) are
+ * NOT touched. Colors via tokens (Req 1.2, 14.5); color-mix is token-derived.
+ * ========================================================================== */
+
+/* --- Portfolio summary card --- */
+.pfSummary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  padding: var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  border-radius: var(--radius-3xl);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
+    var(--color-panel) 62%
+  );
+  box-shadow: var(--elevation-raised);
+  overflow: hidden;
+}
+
+.pfGlow {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-circle);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 22%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.pfSummaryLabel {
+  position: relative;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.pfSummaryValue {
+  position: relative;
+  font-family: var(--font-family-base);
+  font-size: 2.5rem; /* 40px — dominant portfolio figure */
+  font-weight: var(--font-weight-black);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.pfLtv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.pfLtvHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.pfLtvLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.pfLtvValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+  color: var(--color-green);
+}
+
+.pfLtvNote {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green);
+}
+
+.pfSummaryFooter {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+  padding-top: var(--space-8);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+}
+
+.pfSummaryCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.pfColLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  color: var(--color-text-secondary);
+}
+
+.pfColValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.pfColValueAccent {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-green);
+}
+
+/* --- NAV information card --- */
+.pfNavInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.pfNavIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--color-green);
+}
+
+.pfNavText {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.pfNavText strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* --- Potential credit limit increase (in-screen affordance) --- */
+.pfBoost {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  border-radius: var(--radius-2xl);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+    var(--color-panel) 65%
+  );
+}
+
+.pfBoostBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pfBoostTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.pfBoostText {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+/* --- Section heading + holding list --- */
+.pfSectionTitle {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.pfHoldingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* --- Rich holding card --- */
+.pfHolding {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.pfHoldingTop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.pfHoldingId {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pfHoldingName {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pfHoldingCat {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+.pfHoldingValues {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.pfHoldingValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.pfHoldingEligible {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green);
+}
+
+.pfChevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--color-text-secondary);
+}
+
+/* NAV detail grid inside a holding card. */
+.pfNavGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+.pfNavCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.pfNavCellLabel {
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.pfNavCellValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+ * Transactions — reference reconstruction (node 8:2). Transaction-scoped
+ * `.txn*` classes only; shared classes (.activity*, .creditCard) untouched.
+ * Colors via tokens (Req 1.2, 14.5); color-mix is token-derived.
+ * ========================================================================== */
+
+.txnSubtitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* --- Search + filter --- */
+.txnControls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.txnSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.txnSearchIcon {
+  position: absolute;
+  left: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.txnSearchInput {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 var(--space-6) 0 42px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+}
+
+.txnSearchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.txnSearchInput:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 1px;
+  border-color: color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+}
+
+.txnFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.txnChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+.txnChip:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* Active chip: neon-tinted, non-color cue via bold weight + border (Req 3.6). */
+.txnChip[aria-pressed="true"] {
+  color: var(--color-green);
+  font-weight: var(--font-weight-bold);
+  border-color: color-mix(in srgb, var(--color-green) 45%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+}
+
+/* --- Total spent + spend chart --- */
+.txnSpend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+    var(--color-panel) 65%
+  );
+  box-shadow: var(--elevation-card);
+}
+
+.txnSpendHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.txnSpendBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.txnSpendLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.txnSpendTotal {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.05;
+  color: var(--color-green);
+}
+
+.txnSpendCount {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.txnBars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  height: 76px;
+}
+
+.txnBar {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 6px 6px 2px 2px;
+  background-image: linear-gradient(
+    180deg,
+    var(--color-green),
+    color-mix(in srgb, var(--color-green) 35%, var(--color-panel))
+  );
+}
+
+/* --- Day groups + rich rows --- */
+.txnGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.txnGroupTitle {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.txnGroupList {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-1) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.txnRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+}
+
+.txnRow:last-child {
+  border-bottom: none;
+}
+
+.txnRowBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.txnRowMerchant {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.txnRowMeta {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+.txnRowTrailing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+}
+
+.txnRowAmount {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.txnRowStatus {
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-green);
+}
+
+.txnChevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--color-text-secondary);
+}
+
+/* --- Load more + security note --- */
+.txnLoadMore {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-2);
+}
+
+.txnSecurity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.txnSecurityIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--color-green);
+}
+
+.txnSecurityText {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+ * Repayments — reference reconstruction (node 8:3). Repayment-scoped `.rp*`
+ * classes only; shared classes (.creditCard, .autoDebitRow, .activity*) are
+ * NOT touched. Colors via tokens (Req 1.2, 14.5); color-mix is token-derived.
+ * ========================================================================== */
+
+/* --- Total outstanding hero --- */
+.rpHero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  border-radius: var(--radius-3xl);
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
+    var(--color-panel) 62%
+  );
+  box-shadow: var(--elevation-raised);
+  overflow: hidden;
+}
+
+.rpGlow {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-circle);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 22%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.rpHeroTop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.rpHeroBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.rpHeroLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.rpHeroValue {
+  font-family: var(--font-family-base);
+  font-size: 2.5rem; /* 40px — dominant outstanding figure */
+  font-weight: var(--font-weight-black);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.rpHeroSub {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.rpLink {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 2px;
+  margin-top: var(--space-1);
+  padding: var(--space-2) 0;
+  border: none;
+  background: transparent;
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.rpLink:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.rpLinkChevron {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* --- Interest-free / APR terms --- */
+.rpTerms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.rpTerm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.rpTermTop {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.rpTermAccent {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-green);
+}
+
+.rpTermValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+/* --- What you need to pay --- */
+.rpDue {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-panel);
+  box-shadow: var(--elevation-card);
+}
+
+.rpDueHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.rpDueTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.rpDueRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+.rpDueCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.rpDueLabel {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.rpDueValue {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.rpDueValueMuted {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  color: var(--color-text-secondary);
+}
+
+.rpDueDate {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+.rpDueDot {
+  color: var(--color-text-secondary);
+}
+
+.rpDueUrgent {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-bold);
+}
+
+.rpPayNow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 var(--space-8);
+  border: none;
+  border-radius: var(--radius-lg);
+  background-image: linear-gradient(180deg, var(--color-green-bright), var(--color-green));
+  color: var(--color-bg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  box-shadow: var(--glow-green);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.rpPayNow:active {
+  transform: scale(0.99);
+}
+
+.rpPayNow:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.rpPayNow:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* --- Auto-debit card --- */
+.rpAutoDebit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-7);
+  border: 1px solid color-mix(in srgb, var(--color-green) 24%, var(--color-border));
+  border-radius: var(--radius-2xl);
+  background-color: color-mix(in srgb, var(--color-green) 8%, var(--color-panel));
+}
+
+.rpAutoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--color-green);
+}
+
+.rpAutoBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.rpAutoTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.rpAutoText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* --- Recent repayments + help --- */
+.rpSectionTitle {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.rpHistory {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.rpHelp {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  box-sizing: border-box;
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background-color: color-mix(in srgb, var(--color-panel) 60%, var(--color-bg));
+}
+
+.rpHelpIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--color-green);
+}
+
+.rpHelpBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.rpHelpTitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.rpHelpText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.rpHelpAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 0 var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rpHelpAction:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/*
+ * Transactions row leading glyph — a category line-art icon inside a lime
+ * circle, per the Transactions design reference (replaces the merchant-logo
+ * avatar). Colour via tokens only.
+ */
+.txnCatIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-circle);
+  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.txnCatIcon svg {
+  width: 22px;
+  height: 22px;
+}

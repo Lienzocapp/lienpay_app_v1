@@ -1,0 +1,20 @@
+{
+  "//": "LienPay non-token color validation (Req 1.3, 1.8). Flags raw color literals in product CSS so components consume the seven design tokens via var(--color-*) instead of hard-coding colors. The only place the seven locked hex values may appear literally is the token definition file tokens.css (allowlisted in overrides). var()/currentColor/inherit/transparent are keywords/functions that are NOT flagged.",
+  "rules": {
+    "color-no-hex": [true, { "message": "Hard-coded hex color is not allowed. Consume a design token via var(--color-*) (see design-system/tokens/tokens.css)." }],
+    "color-named": ["never", { "message": "Named colors (e.g. blue/teal/purple/cyan) are not allowed. Use a design token via var(--color-*)." }],
+    "function-disallowed-list": [
+      ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "color", "oklab", "oklch"],
+      { "message": "Raw color functions are not allowed. Consume a design token via var(--color-*). If a token-derived translucent color is genuinely required, add a documented exception here." }
+    ]
+  },
+  "overrides": [
+    {
+      "//": "ALLOWLIST: tokens.css is the single source that defines the seven locked hex values. Hex literals are permitted here only.",
+      "files": ["src/design-system/tokens/tokens.css"],
+      "rules": {
+        "color-no-hex": null
+      }
+    }
+  ]
+}

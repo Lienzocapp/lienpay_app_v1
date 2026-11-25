@@ -1,0 +1,235 @@
+/*
+ * Pay experience — screen + bottom-sheet layout.
+ *
+ * Layout/structure only; ALL color comes exclusively from design tokens via
+ * var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Renders inside the
+ * centered phone-like AppShell content column. Native scrolling only (Req 17.6).
+ */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 14px;
+  min-height: calc(100vh - 40px);
+  min-height: calc(100dvh - 40px);
+}
+
+.eyebrow {
+  margin: 0;
+  padding-top: 2px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.heading {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.intro {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+}
+
+/* The four Pay action tiles inside the actions bottom sheet. */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* A single Pay action row (Scan QR / Enter UPI ID / Pay Contact / Bills). */
+.action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action:hover {
+  border-color: color-mix(in srgb, var(--color-green) 40%, var(--color-border));
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* Icon disc for each Pay action. */
+.actionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  color: var(--color-green);
+}
+
+.actionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.actionLabel {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.actionHint {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.actionChevron {
+  flex: 0 0 auto;
+  font-size: var(--font-size-subheading);
+  color: var(--color-text-secondary);
+}
+
+/* Demo-payment confirmation. */
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Prominent amount block at the top of the confirmation. */
+.confirmAmount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0 4px;
+}
+
+.confirmAmountLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.confirmAmountValue {
+  color: var(--color-text-primary);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+}
+
+.summaryRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summaryLabel {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+}
+
+.summaryValue {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.confirmActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Processing state region in the sheet. */
+.processing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+/* Success moment — restrained (no confetti). */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 8px 0 4px;
+}
+
+.successBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--color-green);
+  background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
+  color: var(--color-green);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-green) 10%, transparent);
+}
+
+.successTitle {
+  margin: 0;
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subheading);
+  color: var(--color-text-primary);
+}
+
+.successAmount {
+  color: var(--color-text-primary);
+}
+
+.successMeta {
+  margin: 0;
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.successActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}

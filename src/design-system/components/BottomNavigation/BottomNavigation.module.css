@@ -1,0 +1,101 @@
+/*
+ * BottomNavigation — styles.
+ *
+ * Persistent bottom navigation bar. All colors via design tokens (Req 1.2,
+ * 14.5). The ACTIVE item is signaled by BOTH a neon green accent AND a
+ * non-color secondary indicator (a visible indicator bar plus bolder weight
+ * and aria-current), so the active state is never signaled by color alone
+ * (Req 3.6, 10.4).
+ *
+ * Presentation: a quiet elevated tab bar that sits on a panel surface lifted
+ * off the base background by a hairline top edge. The active item gets a
+ * subtle neon-tinted pill behind its icon so selection reads instantly on a
+ * phone, while inactive items stay calm in secondary grey.
+ *
+ * Accessibility: each item is >= 44x44px (Req 15.1) with a visible focus
+ * indicator (Req 3.7).
+ */
+
+.nav {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-panel);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-sizing: border-box;
+  min-height: 52px; /* comfortably exceeds the 44px min target (Req 15.1) */
+  padding: 6px 4px;
+  border: none;
+  border-radius: 14px;
+  background-color: transparent;
+  color: var(--color-text-secondary); /* inactive items use secondary grey */
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+  cursor: pointer;
+  transition: color 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: -2px;
+}
+
+.itemActive {
+  color: var(--color-green); /* neon accent for the active item (Req 10.4) */
+  font-weight: var(--font-weight-bold); /* non-color cue: bolder weight (Req 3.6) */
+}
+
+/*
+ * Non-color secondary active indicator (Req 3.6, 10.4): a visible indicator bar
+ * rendered ONLY for the active item. Its PRESENCE/position (a shape at the top
+ * of the tab) — not merely its color — signals the active state, complementing
+ * the aria-current attribute for assistive tech.
+ */
+.indicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 22px;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 0 0 3px 3px;
+  background-color: var(--color-green);
+}
+
+/*
+ * Icon wrapper. The active item lifts its icon into a subtle neon-tinted pill
+ * (a token-derived translucent green over the panel), giving the selected tab
+ * depth without relying on color alone.
+ */
+.icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active icon gets a subtle neon glow (no oversized pill background). */
+.itemActive .icon {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-green) 45%, transparent));
+}
+
+.label {
+  display: block;
+  font-size: 0.6875rem; /* compact native tab label */
+  letter-spacing: 0.01em;
+}

@@ -1,0 +1,66 @@
+/*
+ * LienPay Design System — global base / reset (shared by both experiences).
+ *
+ * A minimal, mobile-first base layer that establishes the document box model,
+ * full-height layout, and the near-black base surface so the centered
+ * phone-like Product shell and the full-width Landing shell both sit on a
+ * consistent backdrop. ALL color comes exclusively from the design tokens via
+ * var(--color-*) (Req 1.2, 1.4, 14.5) — no hard-coded colors here.
+ *
+ * Responsive intent (Req 15):
+ *  - `box-sizing: border-box` everywhere so paddings never widen elements past
+ *    their column and cause horizontal overflow/clipping.
+ *  - `overflow-x: hidden` on the document is a safety guard against horizontal
+ *    PAGE scrolling at any width (390/393/430/768/1024/2560px) — content is
+ *    still laid out fluidly within the visible viewport width (Req 15.1, 15.2,
+ *    15.5); it does not mask clipping because widths use fluid units.
+ *  - `height: 100%` on html/body + `min-height: 100%` on #root lets the app
+ *    shells fill the viewport and center correctly.
+ *
+ * Design: Responsive Architecture (mobile-first), Accessibility.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  min-width: 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100%;
+}
+
+/*
+ * Global reduced-motion safety net (Req 4.8, 16.6). The Animation_System also
+ * gates motion programmatically via the shared reduced-motion helper; this
+ * rule is a defensive backstop so that, wherever a CSS transition/animation is
+ * used, reduced-motion collapses it to a final state immediately with no
+ * intermediate motion. Applies across BOTH experiences.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,60 @@
+/*
+ * LienPay Design System — Scale Tokens (spacing, radius, elevation, glow).
+ *
+ * This is the SINGLE central source for non-color visual scale primitives, the
+ * companion to tokens.css (color) and typography.css (type). Screens/components
+ * consume these `var(--space-*)` / `var(--radius-*)` / `var(--elevation-*)` /
+ * `var(--glow-*)` variables instead of hard-coding magic px values, so a later
+ * pixel-level refinement pass can retune the whole product from one place.
+ *
+ * IMPORTANT: this file introduces NO new color. Every shadow/glow value is
+ * derived from an existing color token via `color-mix(... var(--color-*) ...)`,
+ * so the seven locked colors (+ the semantic warning token) remain the only
+ * color source (Req 1.2, 14.5). color-mix is permitted by the color validators.
+ *
+ * Do NOT create a second design system; refine values here.
+ */
+
+:root {
+  /* --- Spacing scale (4px base rhythm) --- */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 14px;
+  --space-8: 16px;
+  --space-10: 20px;
+  --space-12: 24px;
+  --space-16: 32px;
+  --space-20: 40px;
+
+  /* --- Corner radius scale --- */
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 18px;
+  --radius-3xl: 22px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* --- Icon container sizes --- */
+  --icon-holder-sm: 38px;
+  --icon-holder-md: 46px;
+
+  /* --- Elevation (depth) — token-derived, no raw color literals --- */
+  --elevation-card: 0 1px 0 color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+  --elevation-raised: 0 10px 30px color-mix(in srgb, var(--color-bg) 60%, transparent);
+
+  /* --- Neon glow (restrained) — derived from the green accent token --- */
+  --glow-green-soft: 0 0 6px color-mix(in srgb, var(--color-green) 22%, transparent);
+  --glow-green: 0 2px 10px color-mix(in srgb, var(--color-green) 12%, transparent);
+
+  /* --- Standard motion easing/duration (matches existing transitions) --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 140ms;
+  --duration-base: 160ms;
+}

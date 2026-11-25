@@ -1,0 +1,93 @@
+/*
+ * ProcessTimeline — styles.
+ *
+ * A vertical connector-line timeline. Rounded container, dark border, near-black
+ * panel surface (Req 3.1, 3.3). All colors via design tokens (Req 1.2, 14.5).
+ * Status is conveyed by a distinct marker shape/glyph (non-color indicator,
+ * Req 3.6) in addition to a token color.
+ */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 8px 16px;
+  list-style: none;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+}
+
+.step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+/* Connector line between markers. */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 32px;
+  bottom: -8px;
+  width: 2px;
+  background-color: var(--color-border);
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-panel);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.complete {
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.active {
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.pending {
+  color: var(--color-text-secondary);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.label {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.detail {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}

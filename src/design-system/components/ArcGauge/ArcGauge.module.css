@@ -1,0 +1,60 @@
+/*
+ * ArcGauge — styles.
+ *
+ * An open speedometer-style gauge. All colors via design tokens (Req 1.2,
+ * 14.5): the inactive track uses the border token; the progress arc + end-knob
+ * use the neon accent (valid for a key financial indicator — Req 1.5) with a
+ * soft, restrained glow. The centered value carries the number so progress is
+ * never conveyed by color alone (Req 3.6).
+ */
+
+.gauge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.track {
+  stroke: var(--color-border);
+}
+
+.arc {
+  stroke: var(--color-green);
+  transition: d 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.knob {
+  fill: var(--color-green);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  /* Nudge the label toward the visual centre of the open-bottom arc. */
+  padding-bottom: 6px;
+}
+
+.value {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+  color: var(--color-green);
+}
+
+.caption {
+  font-family: var(--font-family-base);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-text-secondary);
+}

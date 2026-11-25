@@ -1,0 +1,64 @@
+/*
+ * LienPay — Satoshi @font-face (self-hosted, locally bundled, NO CDN)
+ * -------------------------------------------------------------------
+ * Satoshi is loaded EXCLUSIVELY from the woff2 binaries bundled in this
+ * folder. There is no external / CDN / network `src` — every `url()` below
+ * points only at a local file that ships inside the application bundle
+ * (Req 2.7 bundle locally, Req 2.8 never load from a CDN/external source).
+ *
+ * Source of the binaries: the official Fontshare "Satoshi" download package
+ * (https://www.fontshare.com/fonts/satoshi), by the Indian Type Foundry.
+ * License: see ./LICENSE.txt (Fontshare Free Font EULA) retained alongside.
+ *
+ * Family name is exactly "Satoshi" so it matches the `--font-family-base`
+ * stack declared in ../../tokens/typography.css:
+ *     --font-family-base: "Satoshi", sans-serif;
+ * The single `sans-serif` generic remains the sole fallback (Req 2.1, 2.6).
+ *
+ * font-display: fallback — the browser blocks for a very short period, then,
+ * if Satoshi has not loaded, renders the defined sans-serif fallback and (per
+ * the ~3s swap window) keeps that fallback rather than causing a late reflow.
+ * Because the fallback stack and the centralized type scale (size/weight/
+ * line-height in typography.css) are identical whether Satoshi or the
+ * sans-serif fallback is active, the typographic scale, weight, and layout are
+ * preserved on load failure (Req 2.2; Design — Error Handling: "Satoshi font
+ * load failure within 3s → render fallback sans-serif preserving scale/weight/
+ * layout").
+ *
+ * Weights bundled here cover every weight referenced by the centralized
+ * typography scale (typography.css): 400 (regular/body/caption), 500 (medium/
+ * title/label), 700 (bold/heading/subheading/button/financial figure), and
+ * 900 (black/display).
+ */
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url("./Satoshi-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url("./Satoshi-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  src: url("./Satoshi-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 900;
+  font-display: fallback;
+  src: url("./Satoshi-Black.woff2") format("woff2");
+}

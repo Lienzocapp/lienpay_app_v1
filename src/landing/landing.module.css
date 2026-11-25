@@ -1,0 +1,35 @@
+/*
+ * Landing_Page shell — responsive layout rules (Experience A).
+ *
+ * The Landing_Page uses FULL-WIDTH responsive sections with their content
+ * constrained to a centered maximum content width of 1280px at >= 1024px
+ * (Req 15.3). ALL color comes exclusively from design tokens (Req 1.2, 14.5).
+ *
+ * NOTE: the Landing_Page content/sections and cinematic motion are Phase 2
+ * (Task 6) and are NOT built here — the real marketing source has not been
+ * supplied. This stylesheet only establishes the shell + 1280px cap rule so it
+ * exists and is applied to whatever the landing chunk renders today (a
+ * placeholder). Full landing responsive verification is pending Phase 2
+ * content.
+ */
+
+/* Full-width section band (spans the viewport). */
+.shell {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/*
+ * Centered content container: full-width below 1280px, capped at 1280px and
+ * centered with equal left/right margins at wider widths (Req 15.3).
+ */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  box-sizing: border-box;
+}

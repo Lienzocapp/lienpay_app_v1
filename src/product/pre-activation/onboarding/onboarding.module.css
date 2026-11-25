@@ -1,0 +1,588 @@
+/*
+ * Pre-Activation onboarding screens — shared layout styles (screens 1–4).
+ *
+ * Layout/structure only; all color comes exclusively from the design tokens
+ * via var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Screens render
+ * inside the centered phone-like AppShell content column (Design: Responsive
+ * Architecture). Native scrolling only (Req 17.6).
+ */
+
+/*
+ * Onboarding canvas — hosts the ambient GlowField behind the content. Bleeds
+ * slightly past the AppShell content padding so the glow reaches the edges.
+ * flex: 1 stretches it to fill the full AppShell .content height.
+ */
+.onboardingCanvas {
+  position: relative;
+  flex: 1;
+  min-height: 0; /* shrink fix for fixed-height flex chain */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: -12px -16px 0;
+  padding: 12px 16px 0;
+}
+
+.onboardingContent {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0; /* shrink fix for fixed-height flex chain */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Persistent LienPay brand bar shown on every onboarding page. */
+.obBrandBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0 12px;
+}
+
+.obBrandWord {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.obBrandDot {
+  color: var(--color-green);
+}
+
+/* Small glowing "LP" chip — a compact echo of the splash monogram. */
+.obBrandChip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1.5px solid var(--color-green);
+  border-radius: 12px;
+  background-image: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--color-green) 30%, var(--color-panel)),
+    var(--color-panel)
+  );
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-green) 30%, transparent);
+  animation: logo-pulse 2.8s ease-in-out infinite;
+}
+
+.obBrandChipShine {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  transform: skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-green-bright) 55%, transparent),
+    transparent
+  );
+  animation: logo-shine 2.8s ease-in-out infinite;
+}
+
+/* Back-arrow button rendered in the brand bar (top-left) on editable screens. */
+.obBackBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--color-border);
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--color-text-primary) 8%, var(--color-panel));
+  color: var(--color-text-primary);
+  cursor: pointer;
+  /* Minimum 44px touch target — use negative margin so layout stays tight. */
+  min-width: 44px;
+  min-height: 44px;
+  margin: -2px;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.obBackBtn:hover {
+  color: var(--color-green);
+  border-color: var(--color-green);
+  background-color: color-mix(in srgb, var(--color-green) 12%, var(--color-panel));
+}
+
+.obBackBtn:active {
+  background-color: color-mix(in srgb, var(--color-green) 22%, var(--color-panel));
+}
+
+/* Brand bar variant: back-arrow on the left, wordmark centered, LP chip on the right. */
+.obBrandBarWithBack {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 6px 0 12px;
+}
+
+.obBrandBarWordmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* Screen fills the viewport height below the brand bar (~88px of chrome).
+   min-height guarantees enough space so margin-top:auto on .actions always
+   pushes the button to the visual bottom regardless of content length. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(100dvh - 88px);
+}
+
+/* --- Splash (screen 1) --- */
+
+.splash {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/*
+ * Subtle green glow motif behind the logo. A single soft, blurred token-green
+ * shape at low opacity — kept subtle and to a single element (Req 1.6). Uses
+ * only the neon green token; opacity/blur keep it restrained.
+ */
+.splashGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -60%);
+  border-radius: 50%;
+  background-color: var(--color-green);
+  opacity: 0.14;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* "LP" monogram logo mark — glows, then settles into a slow shine pulse. */
+.logoMark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  border: 2px solid var(--color-green);
+  border-radius: 24px;
+  background-image: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--color-green) 30%, var(--color-panel)),
+    var(--color-panel)
+  );
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-black);
+  font-size: var(--font-size-display);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  animation: logo-pulse 2.6s ease-in-out infinite;
+}
+
+/* A bright sheen that sweeps across the monogram (the "shine"). */
+.logoShine {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  transform: skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-green-bright) 55%, transparent),
+    transparent
+  );
+  animation: logo-shine 2.6s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-green) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 44px color-mix(in srgb, var(--color-green) 55%, transparent);
+  }
+}
+
+@keyframes logo-shine {
+  0% {
+    left: -60%;
+  }
+  45%,
+  100% {
+    left: 130%;
+  }
+}
+
+.wordmark {
+  position: relative;
+  margin: 0;
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+}
+
+/* Splash tagline (documented brand line: "Secure · Simple · Trusted"). */
+.tagline {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* --- Verification / setup screens (2–4) --- */
+
+.flow {
+  gap: 22px;
+  justify-content: flex-start;
+  padding-top: 12px;
+  padding-bottom: 110px; /* clearance for the fixed actions bar */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Small uppercase context overline above the screen heading (premium rhythm). */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.heading {
+  margin: 0;
+  max-width: 20ch;
+  color: var(--color-text-primary);
+}
+
+.subtext {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Helper text under a field (e.g. "We'll send a 6-digit OTP..."). */
+.fieldHelp {
+  margin: -6px 0 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Mobile field: country-code prefix + number input on one row. */
+.mobileRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.countryCode {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  white-space: nowrap;
+}
+
+.mobileInput {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.otpBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-caption);
+}
+
+/* Non-color "!" glyph disc so the error is not signaled by color alone. */
+.fieldErrorIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-primary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Resend / countdown line on the OTP screen. */
+.resendRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+.resendButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-caption);
+  cursor: pointer;
+}
+
+.resendButton:disabled {
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+}
+
+.resendButton:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* Actions bar — fixed to the viewport bottom, centred inside the 480px
+   phone-frame shell. position:fixed is the only mechanism that works
+   regardless of parent container height or flex-chain depth. The width and
+   left/transform mirror the shell's centering so it always aligns with the
+   frame on every screen size. */
+.actions {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px max(24px, env(safe-area-inset-bottom, 24px));
+  box-sizing: border-box;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg) 36%
+  );
+  z-index: 50;
+}
+
+.loadingWrap {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* Fine print near the bottom (legal/terms) — supporting text token. */
+.finePrint {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-label);
+  text-align: center;
+}
+
+/* Minimal empty placeholder for not-yet-built steps. */
+.placeholder {
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Welcome (screen 5) card visual --- */
+
+/*
+ * Personalised welcome card (screen 05, design reference): the greeting sits on
+ * the left and a glowing monogram orb on the right. All color via tokens
+ * (Req 1.2, 14.5); color-mix values are token-derived.
+ */
+.welcomeCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--color-green) 22%, var(--color-border));
+  border-radius: 22px;
+  background-image: radial-gradient(
+      120% 140% at 100% 0%,
+      color-mix(in srgb, var(--color-green) 14%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-panel) 94%, var(--color-green)),
+      var(--color-panel)
+    );
+  overflow: hidden;
+}
+
+/* --- Greeting block --- */
+.welcomeGreet {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.welcomeGreetLead {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+}
+
+.welcomeGreetName {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-black);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-green);
+  overflow-wrap: anywhere;
+}
+
+/* Short accent rule beneath the name. */
+.welcomeGreetRule {
+  width: 26px;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--color-green);
+}
+
+/* --- Monogram orb --- */
+.welcomeOrb {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
+}
+
+/* Soft bloom behind the orb. */
+.welcomeOrbHalo {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-green) 30%, transparent),
+    transparent 68%
+  );
+}
+
+/* Thin orbit ring, tilted so it reads as an arc around the initial. */
+.welcomeOrbRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--color-green) 70%, transparent);
+  border-bottom-color: transparent;
+  transform: rotate(-28deg);
+}
+
+.welcomeOrbInitial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-green) 42%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-green) 16%, var(--color-bg));
+  color: var(--color-green);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+}
+
+/* Brand word accent inside a heading (e.g. "Welcome to LienPay"). */
+.headingBrand {
+  color: var(--color-green);
+}
+
+/* Progress indicator wrapper at the top of the onboarding flow (Req 5.4). */
+.progress {
+  margin-bottom: 16px;
+}

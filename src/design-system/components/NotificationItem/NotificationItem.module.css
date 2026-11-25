@@ -1,0 +1,102 @@
+/*
+ * NotificationItem — styles.
+ *
+ * Rounded corners, dark border, near-black panel surface (Req 3.1, 3.3). All
+ * colors via design tokens (Req 1.2, 14.5). Unread state uses a non-color dot
+ * indicator + bolder title (plus a visually-hidden "Unread" label in the DOM),
+ * so it is not conveyed by color alone (Req 3.6). Interactive rows meet the
+ * 44px touch target (Req 15.1) with a visible focus indicator (Req 3.7).
+ */
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: var(--color-panel);
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.interactive {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.interactive:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  margin-top: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+}
+
+/* Unread: filled neon dot (reinforced by bolder title + hidden "Unread" text). */
+.unread .indicator {
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.title {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-title);
+  color: var(--color-text-primary);
+}
+
+.unread .title {
+  font-weight: var(--font-weight-bold);
+}
+
+.meta {
+  flex: 0 0 auto;
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.text {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+/* Visually hidden but available to assistive tech. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

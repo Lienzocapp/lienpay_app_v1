@@ -1,0 +1,125 @@
+/*
+ * InputField — styles.
+ *
+ * Labeled text input, refined to the Batch 1 language: an uppercase micro-label,
+ * a taller premium field, a calm token surface, and a neon focus ring (built
+ * from the green token via color-mix, no new colors). All colors via design
+ * tokens (Req 1.2, 14.5).
+ *
+ * The error state uses a token-based emphasis (a brighter border + a non-color
+ * "!" glyph rendered by the component) rather than browser-default styling, so
+ * the invalid state reads clearly without a red literal and is not conveyed by
+ * color alone.
+ *
+ * Accessibility: 52px field height (>= 44px touch target, Req 15.1), visible
+ * focus indicator (Req 3.7).
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Visually hidden label (still available to assistive tech). */
+.labelHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 52px; /* premium field, >= 44px touch target (Req 15.1) */
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  transition: border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.input:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--color-text-secondary) 45%, var(--color-border));
+}
+
+/* Neon focus ring (token-derived translucent green), no default outline. */
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-green) 26%, transparent);
+  background-color: var(--color-panel);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/*
+ * Error state: a brighter border emphasis (white token) plus the component's
+ * non-color "!" glyph. Kept token-only (no red literal exists in the palette).
+ */
+.inputError {
+  border-color: var(--color-text-primary);
+}
+
+.inputError:focus-visible {
+  border-color: var(--color-text-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text-primary) 22%, transparent);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-primary);
+}
+
+/* Non-color "!" glyph disc so the error is not signaled by color alone. */
+.errorIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-primary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}

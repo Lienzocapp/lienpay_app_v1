@@ -1,0 +1,175 @@
+/*
+ * Pre-Activation Phase 4 screens (7–10): Portfolio / Credit Eligibility, Fund
+ * Selection, Pledge Consent, Pledge Processing — shared layout styles.
+ *
+ * Layout/structure only; every color comes exclusively from the design tokens
+ * via var(--color-*) (Req 1.2, 14.5) — no hard-coded colors. Screens render
+ * inside the centered phone-like AppShell content column (Design: Responsive
+ * Architecture). Native scrolling only (Req 17.6).
+ */
+
+/* Stacked cards (eligibility figures, fund list). */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- Screen 7: eligibility figures --- */
+
+.eligibilityGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- Screen 8: fund selection --- */
+
+/* Scrollable list of FundCards (native scrolling). */
+.fundList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fundListItem {
+  display: block;
+}
+
+/* Provisional-data disclosure note (non-authoritative fund content). */
+.provisionalNote {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-panel);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* Sticky-summary label + value (selected count out of total). */
+.summaryLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.summaryValue {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-family-base);
+  line-height: 1.1;
+}
+
+/* Sticky-summary count value emphasis (key figure token usage). */
+.summaryCount {
+  color: var(--color-green);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+}
+
+.summaryTotal {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+}
+
+/* --- Screen 9: pledge consent --- */
+
+/* Pledge summary card: what is pledged + the credit line it enables. */
+.pledgeSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+}
+
+.pledgeRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pledgeRowLabel {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.pledgeRowValue {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.pledgeCredit {
+  color: var(--color-green);
+}
+
+.pledgeDivider {
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+/* Consent row: checkbox + label as a single >=44px touch target. */
+.consentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-panel);
+  cursor: pointer;
+}
+
+.consentCheckbox {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--color-green);
+}
+
+.consentCheckbox:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.consentLabelText {
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* --- Screen 10: pledge processing --- */
+
+.processingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.processingLoading {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}

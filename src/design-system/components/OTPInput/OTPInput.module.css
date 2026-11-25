@@ -1,0 +1,71 @@
+/*
+ * OTPInput — styles.
+ *
+ * A row of single-character cells for one-time passcode entry, refined to the
+ * Batch 1 language. All colors via design tokens (Req 1.2, 14.5).
+ *
+ * The cells flex to fill the row evenly, so six 44px+ targets always fit the
+ * phone column at 390px with no horizontal overflow. Focus shows a neon ring
+ * (token-derived) and a filled cell gets a neon border plus a subtle neon wash,
+ * so entry feels responsive and real.
+ *
+ * Accessibility: each cell is >= 44px tall (Req 15.1) and shows a visible focus
+ * indicator (Req 3.7).
+ */
+
+.group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.groupLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cell {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0; /* flex evenly; never overflow the phone column */
+  height: 56px; /* >= 44px touch target (Req 15.1) */
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: color-mix(in srgb, var(--color-panel) 70%, var(--color-bg));
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-subheading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  text-align: center;
+  transition: border-color 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cell:focus-visible {
+  outline: none;
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-green) 26%, transparent);
+  background-color: var(--color-panel);
+}
+
+.cell:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cellFilled {
+  border-color: var(--color-green);
+  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+}

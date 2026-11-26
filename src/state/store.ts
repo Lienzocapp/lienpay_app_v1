@@ -16,6 +16,7 @@
  * Updates.
  */
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import type {
   ApplicationState,
   OnboardingStatus,
@@ -204,77 +205,92 @@ export interface LienPayStore extends ApplicationState {
 }
 
 /**
- * The single LienPay Zustand store hook. Components subscribe via selectors
- * (see `selectors.ts`) so only dependent UI re-renders on change.
+ * The single LienPay Zustand store hook with localStorage persistence.
+ * Components subscribe via selectors (see `selectors.ts`) so only dependent UI re-renders on change.
  */
-export const useLienPayStore = create<LienPayStore>((set) => ({
-  ...createInitialState(),
-  resetToSnapshot: () => set(() => ({ ...createInitialState() })),
-  recordPayment: (amountPaise, transaction) =>
-    set((state) => recordPayment(state, amountPaise, transaction)),
-  recordRepayment: (amountPaise) =>
-    set((state) => recordRepayment(state, amountPaise)),
-  completeOnboardingStep: (step) =>
-    set((state) => ({
-      onboardingStatus: { ...state.onboardingStatus, [step]: "complete" },
-    })),
-  setUserName: (name) =>
-    set((state) => ({
-      session: { ...state.session, userName: name },
-    })),
-  setPanStatus: (status) => set(() => ({ panStatus: status })),
-  setPanNumber: (pan) => set(() => ({ panNumber: pan })),
-  setPanProcessingStatus: (status) =>
-    set(() => ({ panProcessingStatus: status })),
-  setMfConnectionStatus: (status) =>
-    set(() => ({ mfConnectionStatus: status })),
-  setMfConsentStatus: (status) => set(() => ({ mfConsentStatus: status })),
-  setInvestmentsFetchStatus: (status) =>
-    set(() => ({ investmentsFetchStatus: status })),
-  setPortfolioFoundStatus: (status) =>
-    set(() => ({ portfolioFoundStatus: status })),
-  setEligibilityStatus: (status) => set(() => ({ eligibilityStatus: status })),
-  setPortfolioStatus: (status) => set(() => ({ portfolioStatus: status })),
-  setCustomCreditLimit: (limitPaise, selectedPortfolioValue) =>
-    set((state) => {
-      const formatted = formatINR(limitPaise);
-      const used = state.usedCreditPaise;
-      const availablePaise = Math.max(0, limitPaise - used);
-      return {
-        creditLimit: formatted,
-        creditLimitPaise: limitPaise,
-        availableCredit: formatINR(availablePaise),
-        availableCreditPaise: availablePaise,
-        ...(selectedPortfolioValue !== undefined ? { selectedPortfolioValue } : {}),
-      };
+export const useLienPayStore = create<LienPayStore>()(
+  persist(
+    (set) => ({
+      ...createInitialState(),
+      resetToSnapshot: () => set(() => ({ ...createInitialState() })),
+      recordPayment: (amountPaise, transaction) =>
+        set((state) => recordPayment(state, amountPaise, transaction)),
+      recordRepayment: (amountPaise) =>
+        set((state) => recordRepayment(state, amountPaise)),
+      completeOnboardingStep: (step) =>
+        set((state) => ({
+          onboardingStatus: { ...state.onboardingStatus, [step]: "complete" },
+        })),
+      setUserName: (name) =>
+        set((state) => ({
+          session: { ...state.session, userName: name },
+        })),
+      setPanStatus: (status) => set(() => ({ panStatus: status })),
+      setPanNumber: (pan) => set(() => ({ panNumber: pan })),
+      setPanProcessingStatus: (status) =>
+        set(() => ({ panProcessingStatus: status })),
+      setMfConnectionStatus: (status) =>
+        set(() => ({ mfConnectionStatus: status })),
+      setMfConsentStatus: (status) => set(() => ({ mfConsentStatus: status })),
+      setInvestmentsFetchStatus: (status) =>
+        set(() => ({ investmentsFetchStatus: status })),
+      setPortfolioFoundStatus: (status) =>
+        set(() => ({ portfolioFoundStatus: status })),
+      setEligibilityStatus: (status) => set(() => ({ eligibilityStatus: status })),
+      setPortfolioStatus: (status) => set(() => ({ portfolioStatus: status })),
+      setCustomCreditLimit: (limitPaise, selectedPortfolioValue) =>
+        set((state) => {
+          const formatted = formatINR(limitPaise);
+          const used = state.usedCreditPaise;
+          const availablePaise = Math.max(0, limitPaise - used);
+          return {
+            creditLimit: formatted,
+            creditLimitPaise: limitPaise,
+            availableCredit: formatINR(availablePaise),
+            availableCreditPaise: availablePaise,
+            ...(selectedPortfolioValue !== undefined ? { selectedPortfolioValue } : {}),
+          };
+        }),
+      toggleFund: (id) =>
+        set((state) => {
+          if (state.selectedFunds.includes(id)) {
+            return {
+              selectedFunds: state.selectedFunds.filter((fundId) => fundId !== id),
+            };
+          }
+          // Enforce the max-selection bound (Req 7.2): ignore additions beyond it.
+          if (state.selectedFunds.length >= MAX_SELECTED_FUNDS) {
+            return {};
+          }
+          return { selectedFunds: [...state.selectedFunds, id] };
+        }),
+      setPledgeStatus: (status) => set(() => ({ pledgeStatus: status })),
+      setVerificationStatus: (step, status) =>
+        set((state) => ({
+          verificationStatus: { ...state.verificationStatus, [step]: status },
+        })),
+      setBankVerificationStatus: (status) =>
+        set(() => ({ bankVerificationStatus: status })),
+      setMandateStatus: (status) => set(() => ({ mandateStatus: status })),
+      setAgreementStatus: (status) => set(() => ({ agreementStatus: status })),
+      setESignStatus: (status) => set(() => ({ eSignStatus: status })),
+      setFinalReviewStatus: (status) => set(() => ({ finalReviewStatus: status })),
+      activateAccount: () => set(() => ({ activationStatus: "active" })),
+      setAsyncInFlight: (inFlight) =>
+        set((state) => ({
+          session: { ...state.session, asyncInFlight: inFlight },
+        })),
     }),
-  toggleFund: (id) =>
-    set((state) => {
-      if (state.selectedFunds.includes(id)) {
+    {
+      name: "lienpay_app_state",
+      // Exclude transient in-flight flags from storage
+      partialize: (state) => {
+        const { setAsyncInFlight, ...rest } = state;
         return {
-          selectedFunds: state.selectedFunds.filter((fundId) => fundId !== id),
+          ...rest,
+          session: { ...state.session, asyncInFlight: false },
         };
-      }
-      // Enforce the max-selection bound (Req 7.2): ignore additions beyond it.
-      if (state.selectedFunds.length >= MAX_SELECTED_FUNDS) {
-        return {};
-      }
-      return { selectedFunds: [...state.selectedFunds, id] };
-    }),
-  setPledgeStatus: (status) => set(() => ({ pledgeStatus: status })),
-  setVerificationStatus: (step, status) =>
-    set((state) => ({
-      verificationStatus: { ...state.verificationStatus, [step]: status },
-    })),
-  setBankVerificationStatus: (status) =>
-    set(() => ({ bankVerificationStatus: status })),
-  setMandateStatus: (status) => set(() => ({ mandateStatus: status })),
-  setAgreementStatus: (status) => set(() => ({ agreementStatus: status })),
-  setESignStatus: (status) => set(() => ({ eSignStatus: status })),
-  setFinalReviewStatus: (status) => set(() => ({ finalReviewStatus: status })),
-  activateAccount: () => set(() => ({ activationStatus: "active" })),
-  setAsyncInFlight: (inFlight) =>
-    set((state) => ({
-      session: { ...state.session, asyncInFlight: inFlight },
-    })),
-}));
+      },
+    }
+  )
+);

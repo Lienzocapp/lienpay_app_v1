@@ -27,6 +27,74 @@ export interface WelcomeScreenProps {
   onAdvance: () => void;
 }
 
+const ICON_PROPS = {
+  viewBox: "0 0 24 24",
+  width: 18,
+  height: 18,
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.75,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true as const,
+};
+
+const WELCOME_INSIGHTS = [
+  {
+    id: "zero-interest",
+    title: "0% interest",
+    detail: "Pay in full by the due date",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <line x1="19" y1="5" x2="5" y2="19" />
+        <circle cx="6.5" cy="6.5" r="2.5" />
+        <circle cx="17.5" cy="17.5" r="2.5" />
+      </svg>
+    ),
+  },
+  {
+    id: "convert-emi",
+    title: "Convert any spend to EMI",
+    detail: "Choose a tenure after you pay",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="m17 2 4 4-4 4" />
+        <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
+        <path d="m7 22-4-4 4-4" />
+        <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+      </svg>
+    ),
+  },
+  {
+    id: "upi-qr",
+    title: "Pay at any UPI QR",
+    detail: "Scan and pay from your credit line",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M17 12v4a1 1 0 0 1-1 1h-4" />
+        <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+        <path d="M17 8V7" />
+        <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+        <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+        <path d="M7 17h.01" />
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+        <rect x="7" y="7" width="5" height="5" rx="1" />
+      </svg>
+    ),
+  },
+  {
+    id: "no-fee",
+    title: "No convenience fee",
+    detail: "Pay only what you spend",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".75" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+] as const;
+
 export function WelcomeScreen({ onAdvance }: WelcomeScreenProps) {
   const completeOnboardingStep = useLienPayStore(
     (s) => s.completeOnboardingStep
@@ -67,6 +135,20 @@ export function WelcomeScreen({ onAdvance }: WelcomeScreenProps) {
           <span className={styles.welcomeOrbInitial}>{initial}</span>
         </span>
       </div>
+
+      <ul className={styles.welcomeInsights} aria-label="LienPay highlights">
+        {WELCOME_INSIGHTS.map((item) => (
+          <li key={item.id} className={styles.welcomeInsightItem}>
+            <span className={styles.welcomeInsightBadge} aria-hidden="true">
+              {item.icon}
+            </span>
+            <div className={styles.welcomeInsightCopy}>
+              <span className={styles.welcomeInsightTitle}>{item.title}</span>
+              <span className={styles.welcomeInsightDetail}>{item.detail}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
 
       <div className={styles.actions}>
         <PrimaryButton fullWidth onClick={handleContinue}>

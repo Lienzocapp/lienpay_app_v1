@@ -75,7 +75,6 @@
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-black);
   line-height: 1;
-  box-shadow: 0 0 16px color-mix(in srgb, var(--color-green) 30%, transparent);
   animation: logo-pulse 2.8s ease-in-out infinite;
 }
 
@@ -227,10 +226,10 @@
 @keyframes logo-pulse {
   0%,
   100% {
-    box-shadow: 0 0 24px color-mix(in srgb, var(--color-green) 30%, transparent);
+    border-color: color-mix(in srgb, var(--color-green) 70%, var(--color-border));
   }
   50% {
-    box-shadow: 0 0 44px color-mix(in srgb, var(--color-green) 55%, transparent);
+    border-color: var(--color-green);
   }
 }
 
@@ -636,4 +635,19 @@
   font-size: var(--font-size-caption);
   line-height: var(--line-height-caption);
   color: var(--color-text-secondary);
+}
+
+/* Subtle demo-account hint on OTP screen. */
+.demoNote {
+  margin: -6px 0 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.demoNoteCode {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-green);
+  letter-spacing: 0.04em;
 }

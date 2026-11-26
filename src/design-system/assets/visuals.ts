@@ -21,6 +21,13 @@ export const VISUALS = {
   investments: `${BASE}lienpay-investments.png`,
   /** Shield over coins — Learn answer/security hero. */
   security: `${BASE}lienpay-security.png`,
+  /** 3D photo-style category icons for everyday-needs / ways-people-use-it tiles. */
+  categoryFood: `${BASE}category-food.jpg`,
+  categoryFuel: `${BASE}category-fuel.jpg`,
+  categoryGrocery: `${BASE}category-grocery.jpg`,
+  categoryTravel: `${BASE}category-travel.jpg`,
+  categoryMedical: `${BASE}category-medical.jpg`,
+  categoryBills: `${BASE}category-bills.jpg`,
 } as const;
 
 /** Name of a known LienPay visual. */

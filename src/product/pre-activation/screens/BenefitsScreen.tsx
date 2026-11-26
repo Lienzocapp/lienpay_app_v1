@@ -27,14 +27,9 @@ import { PreActivationHeader } from "../PreActivationHeader";
 import {
   ArrowRightIcon,
   BarsIcon,
-  BillsIcon,
   BriefcaseIcon,
   Calendar30Icon,
-  CartIcon,
   ChevronRightIcon,
-  CutleryIcon,
-  MedicalIcon,
-  PlaneIcon,
   ShieldCheckIcon,
   StarIcon,
 } from "../preIcons";
@@ -62,13 +57,13 @@ const BENEFIT_ROWS = [
   },
 ] as const;
 
-/** The "Ways people use it" categories from the reference. */
+/** The "Ways people use it" categories with 3D photo-style icons. */
 const WAYS = [
-  { id: "food", label: "Food", icon: <CutleryIcon /> },
-  { id: "bills", label: "Bills", icon: <BillsIcon /> },
-  { id: "travel", label: "Travel", icon: <PlaneIcon /> },
-  { id: "grocery", label: "Grocery", icon: <CartIcon /> },
-  { id: "medical", label: "Medical", icon: <MedicalIcon /> },
+  { id: "food", label: "Food", image: VISUALS.categoryFood },
+  { id: "bills", label: "Bills", image: VISUALS.categoryBills },
+  { id: "travel", label: "Travel", image: VISUALS.categoryTravel },
+  { id: "grocery", label: "Grocery", image: VISUALS.categoryGrocery },
+  { id: "medical", label: "Medical", image: VISUALS.categoryMedical },
 ] as const;
 
 export function BenefitsScreen() {
@@ -176,7 +171,12 @@ export function BenefitsScreen() {
           {WAYS.map((w) => (
             <li key={w.id} className={styles.everydayTile}>
               <span className={styles.everydayIcon} aria-hidden="true">
-                {w.icon}
+                <img
+                  className={styles.everydayPhoto}
+                  src={w.image}
+                  alt=""
+                  decoding="async"
+                />
               </span>
               <span className={styles.everydayLabel}>{w.label}</span>
             </li>

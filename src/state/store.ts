@@ -26,6 +26,7 @@ import type {
 } from "./types";
 import { createInitialState } from "./initialSnapshot";
 import { recordPayment, recordRepayment } from "./reducers/financial";
+import { formatINR } from "../formatting/inr";
 
 /**
  * Maximum number of funds the prototype supports / a user may pledge on the
@@ -122,6 +123,12 @@ export interface LienPayStore extends ApplicationState {
    * Mock_Service operation (Design: Onboarding Resume Logic).
    */
   setPortfolioStatus: (status: StepStatus) => void;
+  /**
+   * Sets the dynamically calculated credit limit and selected portfolio value based on user fund selection.
+   * Updates creditLimit display string, creditLimitPaise, availableCreditPaise, and selected portfolio value.
+   */
+  setCustomCreditLimit: (creditLimitPaise: number, selectedPortfolioValue?: string) => void;
+  selectedPortfolioValue?: string;
   /**
    * Toggles a fund's selection on the Fund Selection screen (screen 8),
    * updating the centralized `selectedFunds` list (Req 7.2, 7.3). Adding is
@@ -228,6 +235,19 @@ export const useLienPayStore = create<LienPayStore>((set) => ({
     set(() => ({ portfolioFoundStatus: status })),
   setEligibilityStatus: (status) => set(() => ({ eligibilityStatus: status })),
   setPortfolioStatus: (status) => set(() => ({ portfolioStatus: status })),
+  setCustomCreditLimit: (limitPaise, selectedPortfolioValue) =>
+    set((state) => {
+      const formatted = formatINR(limitPaise);
+      const used = state.usedCreditPaise;
+      const availablePaise = Math.max(0, limitPaise - used);
+      return {
+        creditLimit: formatted,
+        creditLimitPaise: limitPaise,
+        availableCredit: formatINR(availablePaise),
+        availableCreditPaise: availablePaise,
+        ...(selectedPortfolioValue !== undefined ? { selectedPortfolioValue } : {}),
+      };
+    }),
   toggleFund: (id) =>
     set((state) => {
       if (state.selectedFunds.includes(id)) {

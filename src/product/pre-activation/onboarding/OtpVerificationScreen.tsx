@@ -136,6 +136,12 @@ export function OtpVerificationScreen({ onAdvance }: OtpVerificationScreenProps)
           ) : null}
         </div>
 
+
+        <p className={styles.demoNote}>
+          Demo account: use <span className={styles.demoNoteCode}>123456</span>{" "}
+          as your OTP.
+        </p>
+
         <div className={styles.resendRow}>
           {secondsLeft > 0 ? (
             <span>Resend code in {secondsLeft}s</span>
@@ -150,6 +156,7 @@ export function OtpVerificationScreen({ onAdvance }: OtpVerificationScreenProps)
             </button>
           )}
         </div>
+
 
         {submitting ? (
           <div className={styles.loadingWrap}>

@@ -152,5 +152,4 @@
   border-radius: 50%;
   background-color: var(--color-green);
   border: 2px solid var(--color-bg);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--color-green) 55%, transparent);
 }

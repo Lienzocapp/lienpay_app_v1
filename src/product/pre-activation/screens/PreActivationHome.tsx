@@ -38,12 +38,7 @@ import {
   ArrowRightIcon,
   BoltIcon,
   Calendar30Icon,
-  CartIcon,
-  FoodIcon,
-  FuelIcon,
-  MedicalIcon,
   PieIcon,
-  PlaneIcon,
   ShieldCheckIcon,
 } from "../preIcons";
 import styles from "../preActivation.module.css";
@@ -86,13 +81,13 @@ const FACT_TILES = [
   { id: "upi", icon: <BoltIcon />, lines: ["Instant", "UPI Payments"] },
 ] as const;
 
-/** The everyday-needs categories from the reference. */
+/** The everyday-needs categories with 3D photo-style icons. */
 const EVERYDAY_CATEGORIES = [
-  { id: "food", label: "Food", icon: <FoodIcon /> },
-  { id: "fuel", label: "Fuel", icon: <FuelIcon /> },
-  { id: "grocery", label: "Grocery", icon: <CartIcon /> },
-  { id: "travel", label: "Travel", icon: <PlaneIcon /> },
-  { id: "medical", label: "Medical", icon: <MedicalIcon /> },
+  { id: "food", label: "Food", image: VISUALS.categoryFood },
+  { id: "fuel", label: "Fuel", image: VISUALS.categoryFuel },
+  { id: "grocery", label: "Grocery", image: VISUALS.categoryGrocery },
+  { id: "travel", label: "Travel", image: VISUALS.categoryTravel },
+  { id: "medical", label: "Medical", image: VISUALS.categoryMedical },
 ] as const;
 
 export function PreActivationHome() {
@@ -242,7 +237,12 @@ export function PreActivationHome() {
           {EVERYDAY_CATEGORIES.map((cat) => (
             <li key={cat.id} className={styles.everydayTile}>
               <span className={styles.everydayIcon} aria-hidden="true">
-                {cat.icon}
+                <img
+                  className={styles.everydayPhoto}
+                  src={cat.image}
+                  alt=""
+                  decoding="async"
+                />
               </span>
               <span className={styles.everydayLabel}>{cat.label}</span>
             </li>

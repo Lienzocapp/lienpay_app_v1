@@ -692,7 +692,6 @@
   font-size: var(--font-size-button);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--color-green) 24%, transparent);
   transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -702,7 +701,6 @@
 
 .pillPrimary:disabled {
   opacity: 0.45;
-  box-shadow: none;
   cursor: not-allowed;
 }
 
@@ -1560,7 +1558,6 @@
   font-weight: var(--font-weight-bold);
   white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 5px 14px color-mix(in srgb, var(--color-green) 20%, transparent);
   transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

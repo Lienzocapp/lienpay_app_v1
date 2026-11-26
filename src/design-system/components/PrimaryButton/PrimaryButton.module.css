@@ -44,21 +44,17 @@
   text-align: center;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-green) 24%, transparent);
   transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 140ms cubic-bezier(0.4, 0, 0.2, 1),
     filter 140ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .primaryButton:hover {
-  filter: brightness(1.03);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-green) 32%, transparent);
+  filter: brightness(1.04);
 }
 
 /* Purposeful press response (Req 16.4). */
 .primaryButton:active {
   transform: translateY(1px) scale(0.99);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-green) 24%, transparent);
 }
 
 /* Visible keyboard focus indicator (Req 3.7). */
@@ -70,7 +66,6 @@
 /* Disabled state (used later by async-guarded CTAs). */
 .primaryButton:disabled {
   opacity: 0.45;
-  box-shadow: none;
   cursor: not-allowed;
 }
 

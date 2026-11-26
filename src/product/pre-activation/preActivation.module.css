@@ -614,16 +614,10 @@
   gap: 14px;
   box-sizing: border-box;
   padding: 22px 20px 18px;
-  border: 1px solid color-mix(in srgb, var(--color-green) 18%, var(--color-border));
+  border: 1px solid var(--color-border);
   border-radius: 22px;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--color-panel) 96%, var(--color-green)) 0%,
-    var(--color-panel) 60%
-  );
+  background-color: var(--color-panel);
   overflow: hidden;
-  box-shadow: 0 2px 24px color-mix(in srgb, var(--color-green) 6%, transparent),
-              inset 0 1px 0 color-mix(in srgb, var(--color-green) 12%, transparent);
 }
 
 .heroSlideGlow {
@@ -675,14 +669,12 @@
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--color-green) 15%, transparent);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .heroSlideCta:hover {
   background: color-mix(in srgb, var(--color-green) 16%, transparent);
   border-color: var(--color-green);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--color-green) 28%, transparent);
 }
 
 .heroSlideCta:focus-visible {
@@ -730,7 +722,6 @@
   width: 24px;
   border-radius: 999px;
   background-color: var(--color-green);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-green) 60%, transparent);
 }
 
 .heroDot:focus-visible,
@@ -746,18 +737,9 @@
   flex-shrink: 0;
   box-sizing: border-box;
   padding: 22px 22px 18px;
-  border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
+  border: 1px solid var(--color-border);
   border-radius: 24px;
-  background: linear-gradient(
-    150deg,
-    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)) 0%,
-    var(--color-panel) 55%,
-    color-mix(in srgb, var(--color-panel) 92%, var(--color-green)) 100%
-  );
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-green) 10%, transparent) inset,
-    0 4px 32px color-mix(in srgb, var(--color-green) 8%, transparent),
-    0 1px 0 color-mix(in srgb, var(--color-green) 18%, transparent) inset;
+  background-color: var(--color-panel);
 }
 
 .limitCardHead {
@@ -893,16 +875,10 @@
   gap: 10px;
   box-sizing: border-box;
   padding: 16px 8px;
-  border: 1px solid color-mix(in srgb, var(--color-green) 14%, var(--color-border));
-  border-top: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
+  border: 1px solid var(--color-border);
   border-radius: 18px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-panel) 80%, var(--color-green)) 0%,
-    color-mix(in srgb, var(--color-panel) 60%, var(--color-bg)) 100%
-  );
+  background-color: var(--color-panel);
   text-align: center;
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-green) 5%, transparent);
 }
 
 .factIcon {
@@ -966,24 +942,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--color-green) 20%, var(--color-border));
-  background: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--color-panel) 80%, var(--color-green)) 0%,
-    color-mix(in srgb, var(--color-panel) 60%, var(--color-bg)) 100%
-  );
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-panel);
   color: var(--color-green);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--color-green) 8%, transparent);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.everydayPhoto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.16);
+  transition: transform 0.2s ease;
 }
 
 .everydayTile:hover .everydayIcon {
   border-color: color-mix(in srgb, var(--color-green) 55%, transparent);
-  box-shadow: 0 0 16px color-mix(in srgb, var(--color-green) 22%, transparent);
   transform: translateY(-2px);
+}
+
+.everydayTile:hover .everydayPhoto {
+  transform: scale(1.22);
 }
 
 .everydayLabel {

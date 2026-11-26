@@ -143,6 +143,19 @@ export function EligibilityCalculationScreen({
 export function CreditLimitResultScreen({ onAdvance }: EligibilityScreenProps) {
   const navigate = useNavigate();
   const setPortfolioStatus = useLienPayStore((s) => s.setPortfolioStatus);
+  const creditLimit = useLienPayStore((s) => s.creditLimit);
+  const selectedPortfolioValue = useLienPayStore((s) => s.selectedPortfolioValue);
+
+  const displayTotalPortfolio = ELIGIBILITY_DATA.portfolioValue;
+
+  const displaySelectedInvestments =
+    selectedPortfolioValue || ELIGIBILITY_DATA.eligibleInvestments;
+
+  const selectedLabel = selectedPortfolioValue
+    ? "Selected investments"
+    : "Eligible investments";
+
+  const displayCreditLimit = creditLimit || ELIGIBILITY_DATA.eligibleCreditLimit;
 
   const handleContinue = () => {
     // Acknowledge the result and advance to Fund Selection (Design: Onboarding
@@ -166,7 +179,7 @@ export function CreditLimitResultScreen({ onAdvance }: EligibilityScreenProps) {
       <FinancialCard
         hero
         label="Your credit limit"
-        value={ELIGIBILITY_DATA.eligibleCreditLimit}
+        value={displayCreditLimit}
         caption="Based on your eligible investments"
       />
 
@@ -174,14 +187,14 @@ export function CreditLimitResultScreen({ onAdvance }: EligibilityScreenProps) {
         <div className={limit.resultRow}>
           <span className={limit.resultRowLabel}>Portfolio value</span>
           <span className={limit.resultRowValue}>
-            {ELIGIBILITY_DATA.portfolioValue}
+            {displayTotalPortfolio}
           </span>
         </div>
         <div className={limit.resultDivider} aria-hidden="true" />
         <div className={limit.resultRow}>
-          <span className={limit.resultRowLabel}>Eligible investments</span>
+          <span className={limit.resultRowLabel}>{selectedLabel}</span>
           <span className={limit.resultRowValue}>
-            {ELIGIBILITY_DATA.eligibleInvestments}
+            {displaySelectedInvestments}
           </span>
         </div>
         <div className={limit.resultDivider} aria-hidden="true" />
@@ -190,7 +203,7 @@ export function CreditLimitResultScreen({ onAdvance }: EligibilityScreenProps) {
           <span
             className={`${limit.resultRowValue} ${limit.resultRowValueAccent}`}
           >
-            {ELIGIBILITY_DATA.eligibleCreditLimit}
+            {displayCreditLimit}
           </span>
         </div>
       </div>

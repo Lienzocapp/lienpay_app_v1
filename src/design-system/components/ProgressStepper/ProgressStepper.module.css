@@ -68,5 +68,4 @@
 /* Current segment: accent + a soft glow so the leading edge is distinguishable. */
 .segmentCurrent {
   background-color: var(--color-green);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-green) 45%, transparent);
 }

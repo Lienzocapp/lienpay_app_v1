@@ -65,7 +65,6 @@
       color-mix(in srgb, var(--color-panel) 92%, var(--color-green)),
       var(--color-panel)
     );
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--color-green) 12%, transparent);
 }
 
 .hero .figure {

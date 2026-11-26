@@ -132,6 +132,7 @@ export function PortfolioFoundScreen({ onAdvance }: DiscoveryScreenProps) {
   const setPortfolioFoundStatus = useLienPayStore(
     (s) => s.setPortfolioFoundStatus
   );
+  const setCustomCreditLimit = useLienPayStore((s) => s.setCustomCreditLimit);
   const selectedFunds = useLienPayStore((s) => s.selectedFunds);
   const toggleFund = useLienPayStore((s) => s.toggleFund);
 
@@ -166,6 +167,9 @@ export function PortfolioFoundScreen({ onAdvance }: DiscoveryScreenProps) {
   }, []);
 
   const handleContinue = () => {
+    if (estimatedLimitPaise > 0) {
+      setCustomCreditLimit(estimatedLimitPaise, formatINR(selectedPaise));
+    }
     setPortfolioFoundStatus("complete");
     onAdvance();
   };

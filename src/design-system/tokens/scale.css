@@ -45,13 +45,13 @@
   --icon-holder-sm: 38px;
   --icon-holder-md: 46px;
 
-  /* --- Elevation (depth) — token-derived, no raw color literals --- */
-  --elevation-card: 0 1px 0 color-mix(in srgb, var(--color-text-primary) 4%, transparent);
-  --elevation-raised: 0 10px 30px color-mix(in srgb, var(--color-bg) 60%, transparent);
+  /* --- Elevation (flat, shadow-free professional theme) --- */
+  --elevation-card: none;
+  --elevation-raised: none;
 
-  /* --- Neon glow (restrained) — derived from the green accent token --- */
-  --glow-green-soft: 0 0 6px color-mix(in srgb, var(--color-green) 22%, transparent);
-  --glow-green: 0 2px 10px color-mix(in srgb, var(--color-green) 12%, transparent);
+  /* --- Neon glow (disabled in flat shadow-free theme) --- */
+  --glow-green-soft: none;
+  --glow-green: none;
 
   /* --- Standard motion easing/duration (matches existing transitions) --- */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);

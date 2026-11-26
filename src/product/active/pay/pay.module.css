@@ -204,7 +204,6 @@
   border: 2px solid var(--color-green);
   background-color: color-mix(in srgb, var(--color-green) 14%, var(--color-panel));
   color: var(--color-green);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-green) 10%, transparent);
 }
 
 .successTitle {

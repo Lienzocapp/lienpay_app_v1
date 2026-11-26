@@ -32,7 +32,6 @@
     color-mix(in srgb, var(--color-green) 78%, var(--color-panel)),
     var(--color-green)
   );
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-green) 40%, transparent);
   transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

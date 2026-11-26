@@ -86,7 +86,6 @@
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-bold);
   line-height: 1;
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-green) 10%, transparent);
 }
 
 .milestoneEyebrow {

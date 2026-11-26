@@ -42,27 +42,28 @@
 .greeting {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 2px;
+  gap: 6px;
+  padding-top: 4px;
 }
 
 .greetingEyebrow {
   margin: 0;
   font-family: var(--font-family-base);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-body);
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-caption);
   color: var(--color-text-secondary);
 }
 
 .greetingTitle {
   margin: 0;
-  max-width: 16ch;
+  max-width: 18ch;
   font-family: var(--font-family-base);
-  font-size: 1.625rem; /* 26px — dominant overview headline (reference) */
-  font-weight: var(--font-weight-bold);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-black);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
   color: var(--color-text-primary);
 }
 
@@ -557,11 +558,9 @@
   padding: 18px;
   border: 1px solid color-mix(in srgb, var(--color-green) 20%, var(--color-border));
   border-radius: 20px;
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 88%, var(--color-green)),
-    var(--color-panel)
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 88%, var(--color-green)),
+      var(--color-panel));
   overflow: hidden;
 }
 
@@ -575,21 +574,21 @@
   width: 210px;
   height: 210px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-green) 34%, transparent),
-    transparent 68%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--color-green) 34%, transparent),
+      transparent 68%);
   pointer-events: none;
   animation: credit-glow-pulse 4.5s ease-in-out infinite;
 }
 
 @keyframes credit-glow-pulse {
+
   0%,
   100% {
     opacity: 0.75;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.08);
@@ -622,7 +621,8 @@
 /* Prominent, but not screen-consuming (denser than the old 44px hero). */
 .creditFigure {
   font-family: var(--font-family-base);
-  font-size: 2rem; /* 32px */
+  font-size: 2rem;
+  /* 32px */
   font-weight: var(--font-weight-black);
   line-height: 1.1;
   letter-spacing: -0.01em;
@@ -934,11 +934,9 @@
   padding: 16px;
   border: 1px solid var(--color-border);
   border-radius: 18px;
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
-    var(--color-panel)
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+      var(--color-panel));
 }
 
 .spendHeader {
@@ -997,11 +995,9 @@
   flex: 1 1 0;
   min-width: 0;
   border-radius: 6px 6px 2px 2px;
-  background-image: linear-gradient(
-    180deg,
-    var(--color-green),
-    color-mix(in srgb, var(--color-green) 35%, var(--color-panel))
-  );
+  background-image: linear-gradient(180deg,
+      var(--color-green),
+      color-mix(in srgb, var(--color-green) 35%, var(--color-panel)));
 }
 
 /* ==========================================================================
@@ -1022,11 +1018,9 @@
   padding: var(--space-10);
   border: 1px solid color-mix(in srgb, var(--color-green) 34%, var(--color-border));
   border-radius: var(--radius-3xl);
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 94%, var(--color-green)),
-    var(--color-panel) 68%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 94%, var(--color-green)),
+      var(--color-panel) 68%);
   box-shadow: var(--elevation-card);
   overflow: hidden;
 }
@@ -1039,11 +1033,9 @@
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-green) 9%, transparent),
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--color-green) 9%, transparent),
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -1064,20 +1056,22 @@
 
 .heroEyebrow {
   font-family: var(--font-family-base);
-  font-size: var(--font-size-label);
+  font-size: 0.75rem;
   font-weight: var(--font-weight-bold);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-green);
 }
 
 .heroFigure {
   font-family: var(--font-family-base);
-  font-size: 2.5rem; /* 40px — dominant hero financial figure (reference) */
+  font-size: 2.125rem;
+  /* 34px — tight, premium, perfectly balanced figure */
   font-weight: var(--font-weight-black);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   color: var(--color-text-primary);
+  font-feature-settings: "tnum" 1, "cv01" 1;
 }
 
 /* "Used ₹X of ₹Y ›" — dark translucent pill with a subtle border + chevron. */
@@ -1085,16 +1079,17 @@
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  gap: 6px;
+  gap: 5px;
   box-sizing: border-box;
-  padding: 7px 10px 7px 14px;
+  padding: 6px 12px;
   border: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
   border-radius: var(--radius-pill);
   background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
   cursor: pointer;
   font-family: var(--font-family-base);
-  font-size: var(--font-size-caption);
+  font-size: 0.8125rem;
   line-height: 1;
+  letter-spacing: -0.01em;
 }
 
 .usedPill:focus-visible {
@@ -1110,10 +1105,13 @@
 .usedPillVal {
   color: var(--color-green);
   font-weight: var(--font-weight-bold);
+  font-feature-settings: "tnum" 1;
 }
 
 .usedPillOf {
   color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  font-feature-settings: "tnum" 1;
 }
 
 .usedPillChevron {
@@ -1257,8 +1255,10 @@
   font-family: var(--font-family-base);
   font-size: var(--font-size-subheading);
   font-weight: var(--font-weight-black);
-  line-height: 1.1;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--color-text-primary);
+  font-feature-settings: "tnum" 1;
 }
 
 .payCardDue {
@@ -1512,11 +1512,9 @@
   padding: 16px;
   border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
   border-radius: 18px;
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
-    var(--color-panel) 65%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+      var(--color-panel) 65%);
 }
 
 .boostBody {
@@ -1597,11 +1595,9 @@
   padding: var(--space-10);
   border: 1px solid color-mix(in srgb, var(--color-green) 32%, var(--color-border));
   border-radius: var(--radius-3xl);
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
-    var(--color-panel) 62%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
+      var(--color-panel) 62%);
   box-shadow: var(--elevation-raised);
   overflow: hidden;
 }
@@ -1613,11 +1609,9 @@
   width: 200px;
   height: 200px;
   border-radius: var(--radius-circle);
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-green) 22%, transparent),
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--color-green) 22%, transparent),
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -1634,7 +1628,8 @@
 .pfSummaryValue {
   position: relative;
   font-family: var(--font-family-base);
-  font-size: 2.5rem; /* 40px — dominant portfolio figure */
+  font-size: 2.5rem;
+  /* 40px — dominant portfolio figure */
   font-weight: var(--font-weight-black);
   line-height: 1.04;
   letter-spacing: -0.02em;
@@ -1763,11 +1758,9 @@
   padding: var(--space-8);
   border: 1px solid color-mix(in srgb, var(--color-green) 28%, var(--color-border));
   border-radius: var(--radius-2xl);
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
-    var(--color-panel) 65%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+      var(--color-panel) 65%);
 }
 
 .pfBoostBody {
@@ -2026,11 +2019,9 @@
   padding: var(--space-8);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl);
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
-    var(--color-panel) 65%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 90%, var(--color-green)),
+      var(--color-panel) 65%);
   box-shadow: var(--elevation-card);
 }
 
@@ -2082,11 +2073,9 @@
   flex: 1 1 0;
   min-width: 0;
   border-radius: 6px 6px 2px 2px;
-  background-image: linear-gradient(
-    180deg,
-    var(--color-green),
-    color-mix(in srgb, var(--color-green) 35%, var(--color-panel))
-  );
+  background-image: linear-gradient(180deg,
+      var(--color-green),
+      color-mix(in srgb, var(--color-green) 35%, var(--color-panel)));
 }
 
 /* --- Day groups + rich rows --- */
@@ -2235,11 +2224,9 @@
   padding: var(--space-10);
   border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
   border-radius: var(--radius-3xl);
-  background-image: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
-    var(--color-panel) 62%
-  );
+  background-image: linear-gradient(165deg,
+      color-mix(in srgb, var(--color-panel) 86%, var(--color-green)),
+      var(--color-panel) 62%);
   box-shadow: var(--elevation-raised);
   overflow: hidden;
 }
@@ -2251,11 +2238,9 @@
   width: 200px;
   height: 200px;
   border-radius: var(--radius-circle);
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-green) 22%, transparent),
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--color-green) 22%, transparent),
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -2285,7 +2270,8 @@
 
 .rpHeroValue {
   font-family: var(--font-family-base);
-  font-size: 2.5rem; /* 40px — dominant outstanding figure */
+  font-size: 2.5rem;
+  /* 40px — dominant outstanding figure */
   font-weight: var(--font-weight-black);
   line-height: 1.04;
   letter-spacing: -0.02em;
@@ -2621,11 +2607,12 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-circle);
-  border: 1px solid color-mix(in srgb, var(--color-green) 30%, var(--color-border));
-  background-color: color-mix(in srgb, var(--color-green) 10%, var(--color-panel));
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-panel);
   color: var(--color-green);
 }
 

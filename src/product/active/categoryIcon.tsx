@@ -12,35 +12,40 @@
  * comes from the consuming class's design token via `currentColor`.
  */
 import type { ReactNode } from "react";
-import {
-  BillsIcon,
-  CardIcon,
-  CartIcon,
-  CutleryIcon,
-  FuelIcon,
-  MedicalIcon,
-  PlaneIcon,
-} from "../pre-activation/preIcons";
+import { VISUALS } from "../../design-system/assets/visuals";
+import { CardIcon } from "../pre-activation/preIcons";
 
-/** Category label → glyph. Labels come from `merchantCategory`. */
-const CATEGORY_GLYPHS: ReadonlyArray<readonly [RegExp, () => ReactNode]> = [
-  [/food|dining/i, () => <CutleryIcon />],
-  [/fuel|petrol/i, () => <FuelIcon />],
-  [/grocer/i, () => <CartIcon />],
-  [/travel/i, () => <PlaneIcon />],
-  [/pharmacy|medical|health/i, () => <MedicalIcon />],
-  [/bill|utility|recharge/i, () => <BillsIcon />],
+/** Category label → 3D photo icon asset. */
+const CATEGORY_IMAGES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/food|dining|restaurant|cafe/i, VISUALS.categoryFood],
+  [/fuel|petrol|diesel/i, VISUALS.categoryFuel],
+  [/grocer/i, VISUALS.categoryGrocery],
+  [/travel|flight|trip/i, VISUALS.categoryTravel],
+  [/pharmacy|medical|health/i, VISUALS.categoryMedical],
+  [/bill|utility|recharge/i, VISUALS.categoryBills],
 ];
 
 /**
- * Returns the line-art icon for a spend `category`. Unknown categories fall
- * back to the payment-card glyph (a UPI/credit-line payment), so a row is never
- * left without its leading icon.
+ * Returns the icon element for a spend `category`.
+ * Matches the colorful 3D photorealistic icons used across everyday needs,
+ * falling back to a clean payment-card glyph if unclassified.
  */
 export function categoryIcon(category: string): ReactNode {
-  for (const [pattern, glyph] of CATEGORY_GLYPHS) {
+  for (const [pattern, imageSrc] of CATEGORY_IMAGES) {
     if (pattern.test(category)) {
-      return glyph();
+      return (
+        <img
+          src={imageSrc}
+          alt=""
+          decoding="async"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "scale(1.15)",
+          }}
+        />
+      );
     }
   }
   return <CardIcon />;

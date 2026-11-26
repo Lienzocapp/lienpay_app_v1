@@ -26,10 +26,9 @@
 
 :root {
   /* --- Font families (Req 2.1) ---
-   * Primary: Satoshi. Fallback: a single clean sans-serif family (the
-   * `sans-serif` generic keyword). No other families are introduced (Req 2.6).
+   * Primary: Satoshi. Fallback: clean modern system sans-serif stack.
    */
-  --font-family-base: "Satoshi", sans-serif;
+  --font-family-base: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
 
   /* --- Font weights (Satoshi weight axis) --- */
   --font-weight-regular: 400;
@@ -41,25 +40,35 @@
    * Body is the anchor from which the financial-figure sizes are derived so the
    * >= 1.5x rule (Req 2.3) is enforced by construction rather than by hand.
    */
-  --font-size-body: 1rem;        /* 16px @ 16px root */
+  --font-size-body: 1rem;
+  /* 16px @ 16px root */
 
   /* --- Font size scale (per named text style) --- */
-  --font-size-display: 2.5rem;   /* 40px — Landing hero / marketing display */
-  --font-size-heading: 1.75rem;  /* 28px — screen (h1) titles */
-  --font-size-subheading: 1.375rem; /* 22px — section (h2) titles */
-  --font-size-title: 1.125rem;   /* 18px — card / group titles */
+  --font-size-display: 2.5rem;
+  /* 40px — Landing hero / marketing display */
+  --font-size-heading: 1.75rem;
+  /* 28px — screen (h1) titles */
+  --font-size-subheading: 1.375rem;
+  /* 22px — section (h2) titles */
+  --font-size-title: 1.125rem;
+  /* 18px — card / group titles */
   /* --font-size-body defined above (default body text — Req 2.5) */
-  --font-size-caption: 0.875rem; /* 14px — supporting / secondary text */
-  --font-size-label: 0.8125rem;  /* 13px — labels adjacent to financial values */
-  --font-size-button: 1rem;      /* 16px — button labels */
+  --font-size-caption: 0.875rem;
+  /* 14px — supporting / secondary text */
+  --font-size-label: 0.8125rem;
+  /* 13px — labels adjacent to financial values */
+  --font-size-button: 1rem;
+  /* 16px — button labels */
 
   /* --- Key financial figure sizes (Req 2.3) ---
    * DERIVED from the body size so they are ALWAYS >= 1.5x the adjacent body
    * and label text. 1.75x body = 28px (>= 1.5x body 16px, = 2.15x label 13px).
    * The hero variant is used for the single primary/hero figure on a screen.
    */
-  --font-size-financial-figure: calc(var(--font-size-body) * 1.75);      /* 28px */
-  --font-size-financial-figure-hero: calc(var(--font-size-body) * 2.75); /* 44px */
+  --font-size-financial-figure: calc(var(--font-size-body) * 1.75);
+  /* 28px */
+  --font-size-financial-figure-hero: calc(var(--font-size-body) * 2.75);
+  /* 44px */
 
   /* --- Line heights (per named text style) --- */
   --line-height-display: 1.1;
@@ -88,6 +97,9 @@ body {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* --- Named text style utility classes (consumed by screens/components) --- */
@@ -126,6 +138,9 @@ body {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .text-caption {

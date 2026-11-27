@@ -67,7 +67,7 @@ const WELCOME_INSIGHTS = [
   },
   {
     id: "upi-qr",
-    title: "Pay at any UPI QR",
+    title: "Pay at any merchant QR",
     detail: "Scan and pay from your credit line",
     icon: (
       <svg {...ICON_PROPS}>

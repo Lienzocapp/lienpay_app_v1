@@ -244,13 +244,18 @@ export function AadhaarVerificationScreen({ onAdvance }: VerificationScreenProps
           />
 
           {phase === "otp" || phase === "verifying" ? (
-            <OTPInput
-              label="Enter 6-digit OTP"
-              value={otp}
-              length={6}
-              disabled={phase === "verifying"}
-              onChange={setOtp}
-            />
+            <>
+              <OTPInput
+                label="Enter 6-digit OTP"
+                value={otp}
+                length={6}
+                disabled={phase === "verifying"}
+                onChange={setOtp}
+              />
+              <p className={styles.demoNote}>
+                Demo OTP: use <span className={styles.demoNoteCode}>123456</span>
+              </p>
+            </>
           ) : null}
 
           {phase === "sending" || phase === "verifying" ? (

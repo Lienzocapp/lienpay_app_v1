@@ -88,7 +88,7 @@ export const POPULAR_QUESTIONS: readonly FaqItem[] = [
     a: "Repay eligible spending within the applicable interest-free period and no interest is charged on that spending. Any other applicable charges will be shown before you activate the line.",
     bullets: [
       "Your app shows the exact amount due and the repayment date",
-      "You can repay early — there's no need to wait for the due date",
+      "You can repay early, there's no need to wait for the due date",
       "Unpaid amounts may begin attracting interest after the period ends",
     ],
     important:
@@ -111,7 +111,7 @@ export const LEARN_TOPICS: readonly LearnTopic[] = [
       {
         q: "Do I have to use the whole limit?",
         a: "No. If you're eligible for ₹2 lakh but only want ₹50,000 available, you can choose a smaller credit line. Having a ₹50,000 line does not mean you owe ₹50,000. You owe only what you actually spend.",
-        headline: "No — you owe only what you spend.",
+        headline: "No, you owe only what you spend.",
       },
       {
         q: "Is this only for emergencies?",
@@ -192,7 +192,7 @@ export const LEARN_TOPICS: readonly LearnTopic[] = [
       {
         q: "Can I transfer the money to my own bank account?",
         a: "No. LienPay is designed for eligible merchant payments, not for moving borrowed money between your own accounts.",
-        headline: "No — it's for merchant payments.",
+        headline: "No, it's for merchant payments.",
       },
       {
         q: "Can I pay myself through my own business QR?",
@@ -202,7 +202,7 @@ export const LEARN_TOPICS: readonly LearnTopic[] = [
       {
         q: "Can I put the money into an FD for 30 days and earn free interest?",
         a: "No. The product isn't designed to provide unrestricted cash transfers into your bank account. The interest-free period applies to eligible spending, not to borrowing cash for arbitrage.",
-        headline: "No — the period applies to spending.",
+        headline: "No, the period applies to spending.",
       },
       {
         q: "Will it work at every UPI merchant?",
@@ -266,7 +266,7 @@ export const LEARN_TOPICS: readonly LearnTopic[] = [
       {
         q: "Do pledged mutual funds still earn returns?",
         a: "Yes. They remain invested, so their value continues to rise or fall with the underlying fund.",
-        headline: "Yes — they remain invested.",
+        headline: "Yes, they remain invested.",
       },
     ],
   },

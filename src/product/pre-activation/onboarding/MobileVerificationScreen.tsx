@@ -49,7 +49,7 @@ export function MobileVerificationScreen({
       setError(
         result.reason === "required"
           ? "Enter your mobile number to continue."
-          : "Enter a valid mobile number (10–15 digits)."
+          : "Enter a valid mobile number (10-15 digits)."
       );
       return;
     }

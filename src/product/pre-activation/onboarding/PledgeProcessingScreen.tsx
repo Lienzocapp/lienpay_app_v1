@@ -133,7 +133,7 @@ export function PledgeProcessingScreen({
       {phase === "failed" ? (
         <ErrorState
           title="Pledge could not be completed"
-          message="Something went wrong while processing your pledge. Your selected funds are saved — you can try again."
+          message="Something went wrong while processing your pledge. Your selected funds are saved, so you can try again."
           action={
             <PrimaryButton onClick={() => void runPledge()}>
               Try again

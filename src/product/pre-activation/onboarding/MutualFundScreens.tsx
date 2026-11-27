@@ -35,7 +35,7 @@ const CONNECT_POINTS = [
   },
   {
     title: "What we access",
-    body: "A read-only view of your mutual-fund holdings — enough to assess eligibility. We can't transact on them.",
+    body: "A read-only view of your mutual-fund holdings to assess eligibility. We can't transact on them.",
   },
   {
     title: "You stay in control",

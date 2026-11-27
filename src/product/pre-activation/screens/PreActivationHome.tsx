@@ -58,7 +58,7 @@ export const PRE_ACTIVATION_HOME_CREDIT_FIGURE =
 const HERO_SLIDES = [
   {
     title: "Plans don't always wait.",
-    body: "Travel, bills or everyday expenses — keep flexibility close.",
+    body: "Travel, bills or everyday expenses. Keep flexibility close.",
   },
   {
     title: "Stay invested.",
@@ -189,7 +189,7 @@ export function PreActivationHome() {
 
         <p className={styles.limitRange}>
           <span>{ELIGIBILITY_DATA.creditRangeLow}</span>
-          <span className={styles.limitRangeDash}>–</span>
+          <span className={styles.limitRangeDash}>to</span>
           <span>{ELIGIBILITY_DATA.creditRangeHigh}</span>
         </p>
         <p className={styles.limitRangeNote}>

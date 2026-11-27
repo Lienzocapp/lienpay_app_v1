@@ -35,7 +35,7 @@ import styles from "./active.module.css";
 const LEARN_TOPICS = [
   {
     title: "Credit backed by your investments",
-    body: "LienPay gives you a credit line backed by your eligible mutual fund investments — you keep your portfolio invested.",
+    body: "LienPay gives you a credit line backed by your eligible mutual fund investments, while you keep your portfolio invested.",
   },
   {
     title: "Borrow without selling",
@@ -43,7 +43,7 @@ const LEARN_TOPICS = [
   },
   {
     title: "Draw only what you need",
-    body: "Your available credit is ready to use. You only use — and repay — the portion you draw.",
+    body: "Your available credit is ready to use. You only use and repay the portion you draw.",
   },
   {
     title: "Simple repayments",

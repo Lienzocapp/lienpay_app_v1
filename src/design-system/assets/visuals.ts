@@ -13,8 +13,10 @@
 const BASE = import.meta.env.DEV ? '/assets/visuals/' : './assets/visuals/';
 
 export const VISUALS = {
-  /** Hand holding the LienPay card — activation + activation success hero. */
+  /** Hand holding the LienPay card — activation hero. */
   cardHand: `${BASE}lienpay-card-hand.png`,
+  /** Shopping cart inside glowing usage ring — activation success hero. */
+  cartUsage: `${BASE}lienpay-cart-usage.jpg`,
   /** Phone on a café table ringed by spend icons — pre-activation Home hero. */
   heroPlans: `${BASE}lienpay-hero-plans.png`,
   /** Rising arrow over rupee coins — Benefits hero (transparent background). */

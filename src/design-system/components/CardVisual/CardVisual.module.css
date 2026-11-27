@@ -46,6 +46,16 @@
   width: 100%;
   height: auto;
   border-radius: 16px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 96% 96% at 50% 50%,
+    var(--color-bg) 72%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 96% 96% at 50% 50%,
+    var(--color-bg) 72%,
+    transparent 100%
+  );
 }
 
 /* --- Footprint presets (responsive, capped so nothing overflows) --- */

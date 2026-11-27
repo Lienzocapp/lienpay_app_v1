@@ -26,14 +26,15 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
+  CardVisual,
   FinancialCard,
   MetricCard,
   PrimaryButton,
 } from "../../../design-system/components";
 import { prefersReducedMotion } from "../../../animation/contracts";
 import { PRODUCT_EASE } from "../../../animation/product";
+import { VISUALS } from "../../../design-system/assets/visuals";
 import { useLienPayStore } from "../../../state/store";
-import { CardVisual } from "../../../design-system/components";
 import styles from "./onboarding.module.css";
 import phase6 from "./phase6.module.css";
 
@@ -81,9 +82,11 @@ export function ActivationSuccessScreen({
           Your LienPay credit line is ready
         </h1>
 
-        {/* Premium milestone visual — the card-ready moment. */}
+        {/* Shopping cart & everyday usage hero visual. */}
         <CardVisual
           size="md"
+          src={VISUALS.cartUsage}
+          alt="Shopping cart inside a glowing circle surrounded by grocery, food, bills, travel, fuel, and medical usage icons"
           caption="Your eligible investments stay invested."
         />
 
